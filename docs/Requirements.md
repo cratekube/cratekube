@@ -1,4 +1,4 @@
-Introduction
+## Introduction
 
 The following requirements are intended to provide guidance and structure for running Crate on Kubernetes. Each requirement has been identified as an essential part of the architecture and should be incorporated to maximize value to administrators and customers.
 
