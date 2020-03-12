@@ -39,7 +39,7 @@ As a user, I want containers to be automatically hardened against common acciden
 
 ### Pod security policies
 
-TECHNICAL MUSTPOST-MVP
+![Generic badge](https://img.shields.io/badge/TECHNICAL-POSTMVP-YELLOW.svg)
 
 As a user, I want pod security policies to protect the platform from compromising actions, so that my deployment is more reliable and resilient, because an unsecured platform may be compromised by malicious or accidental actions.
 
@@ -70,7 +70,7 @@ As a user, I want resource allocation changes delivered in a median time of 5 mi
 
 ### Resource pools instead of hosts
 
-BUSINESS MUSTPOST-MVP
+![Generic badge](https://img.shields.io/badge/BUSINESS-POSTMVP-brightgreen) 
 
 As a user, I want only a logical representation of resources allocated as "resource pools", so that I don't have to couple my deployment to specific hosts and configuration, because it's unavoidable that people may design their solution specifically using a host-to-container relationship when presented with hosts as the allocation unit of resources.
 
