@@ -99,3 +99,48 @@ MVP should allow for the following:
 To that end, MVP should have the ability to instantiate a Kubernetes cluster in AWS using RKE and EC2 instances. All platform services will need to be created. These services should be bootstrapped via a template in the AWS marketplace, culminating in the `lifecycle-service` creating all platform components and consequently all customer infrastructure and cluster components.
 
 Infrastructure should be created in accordance with Cisco Infosec guidelines and validated using the `policy-mgmt-service`. Clusters are not expected to be created with `PodSecurityPolicy`  or custom RBAC.
+
+# Diagrams
+
+## Component
+![Component](http://www.plantuml.com/plantuml/img/jTFDZjCm40VmUvvYsBlhA-e1RJVBYO8G5N28EBZED6lL7z7ORbMXVNSSt5sQngWH4hbOrOn-dludkVT1K8X6Ls-KbJgs24yXz7x9EOdZebFXAMwZHvBE1hHX8PtXukYrsFhXP2eLFDivOhqMTf2u4JuWyLRvm5VVDxKpnjb5__yk-OJXw6YlRBUoRPsDHzJgW7JYxzSFgxxNIegWd5qxqJw8X4YaF1BafnToBpg4kyykzPxWex3ffqaIR90EIk8T_ApWucdwtvtCT2Omdtj-l7OymqIkjOljBRYHGrSPJTLi47eNIQ9_BJrNS7tTEHNO14UYkng_iRdAVAucwE_IMkrGdgJ6SXIDVgaNOfXgjOx3wcuctCZSMCwY97-8MoIB0JsSBxaIzs_P6RrqBZhA-GDZxwRHmn8aeKYtyHOr3gUo1xT7Fmiilpy9_IQqQWSMbDsHc8LDzvcWOV7eqv6mf1GNDaBAaGzK_UNhusmYJVZlGF6VrEESHr1vvd8eqqmcpDn5_TaJrCxkL3TJ6xs4o_D7m8spAZXwCIgexj6sqUXV)
+<details><summary>Show UML Code</summary>
+<p>
+
+```
+@startuml
+!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/AWSCommon.puml
+!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/NetworkingAndContentDelivery/ELBApplicationLoadBalancer.puml
+       package "Policy Management Service" {
+            [policy-mgmt-service]
+        } 
+       package "Cloud Management Service" {
+         [cloud-mgmt-service]
+         [Cloud resources]
+       }
+        package "Network Storage" {
+          [network-storage]
+        }
+        package "Lifecycle Service" {
+          [lifecycle-service]
+        }
+        package "Cluster Management Service" {
+          [cluster-mgmt-service]
+        }
+        package "Kubernetes Cluster" {
+          [k8-cluster]
+        }
+
+            [cloud-mgmt-service] --> [Cloud resources] : creates/deletes/invokes
+            [cloud-mgmt-service] --> [policy-mgmt-service] : Validates infra
+            [cloud-mgmt-service] --> [network-storage] : Stores State
+            [lifecycle-service] -->  [cluster-mgmt-service] : CRUD
+            [lifecycle-service] -->  [cloud-mgmt-service] : CRUD
+            [lifecycle-service] -->  [network-storage] : Creates/deletes
+            [cluster-mgmt-service] --> [network-storage]: Stores State
+            [cluster-mgmt-service] --> [policy-mgmt-service]: Validate Config
+            [cluster-mgmt-service] --> [k8-cluster]: Manage/monitor
+@enduml
+```
+</p>
+</details>
