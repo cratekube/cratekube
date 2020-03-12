@@ -1,4 +1,4 @@
-ntroduction
+Introduction
 
 The following requirements are intended to provide guidance and structure for running Crate on Kubernetes. Each requirement has been identified as an essential part of the architecture and should be incorporated to maximize value to administrators and customers.
 
@@ -29,17 +29,6 @@ TECHNICAL MUSTMVP
 
 As a user, I want hosts to be ephemeral, so that data is not persisted to host, because without enforcement future host upgrades may result in data loss.
 
-### ~~Mount read/write Docker data root~~
-
-~~TECHNICAL MUST~~
-
-~~As a user, I want hosts to mount separate read-write storage for the Docker data root, so that I may pull images to run my containers without modifying the host, because using the host read-only file system will not allow Docker image pull.~~
-
-### ~~ZFS overlay file system~~
-
-~~TECHNICAL SHOULD~~
-
-~~As a user, I want hosts to mount the Docker data root using a ZFS file system, so that my containers startup and run faster with better durability, because ZFS snapshot performance is theoretically faster than OverlayFS and includes advanced caching and data integrity checking.~~
 
 Container configuration
 -----------------------
@@ -262,12 +251,6 @@ BUSINESS SHOULDPOST-MVP
 
 As a user, I want support for docker-compose v2 yml, so that I can retain the simplicity that Crate currently offers, because Kurbenetes-yaml is verbose and difficult to understand.
 
-#### ~~Rancher-compose yml~~
-
-~~BUSINESS SHOULD~~
-
-~~As a user, I want support for rancher-compose 1.6 yml, so that I can more easily migrate existing deployments running on Crate, having to port my deployment to K8s yaml is a barrier to adoption a K8s-based platform.~~
-
 ### Template-based deployments
 
 BUSINESS SHOULD
@@ -304,12 +287,6 @@ As a user, I want automated HTTPS certificates, so that I can more easily comply
 TECHNICAL SHOULDPOST-MVP
 
 As a user, I want automated DNS-based failover, so that I can engineer my deployment without a single-point of failure, because without DNS-failover, all traffic will ultimately be dependent one host.
-
-### ~~Use Rancher >=v2.2.7~~
-
-~~TECHNICAL SHOULD~~
-
-~~As a user, I want the solution to use Rancher >=v2.2.7, so that the Crate operations team can provide me with more expedient support, because scaling to hundreds of K8s clusters will not be easy without an operational view spanning clusters.~~
 
 Shared Requirements
 -------------------
