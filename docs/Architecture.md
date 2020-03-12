@@ -144,3 +144,169 @@ Infrastructure should be created in accordance with Cisco Infosec guidelines and
 ```
 </p>
 </details>
+
+## Logical
+![Component](http://www.plantuml.com/plantuml/img/jPHFJnin4CNl-odSt9ULUgeuL8I54nIXHYq7r8En9y6A_wp6DX6gyjrhusK4Sh9T8R6NtMXUVlFynlQP3nn3DBhvegpGKG9x367mfrs7V7UoKU4nFaGFA9mDOCE9SARZEw_vWy_lLgM2RzSEsq5pcqcTuJu0TbBvq2tlLhqpnjcJuVEQt43OETmgkrbQsHV61MZr1FZSNLwVBuT1Ay63SlRQSNdE4qG05aj2koZPuhB_kc1_6vOUwoImnTKtpsur3wchORsEkTseoC_0nPPlakxM9VOp-y5j-cd01hO2V582I3m-zyEBiZKR4rfVD7z8iMSLkS_E_WU-5rbLGyTgOI1u5r60fzAUDDHkJ96jWaE-6RiGo9PgwqkLG8T8rseDubbeE1p5lNwja-CfsfZzP10bYI8y5d2JFoTpOstxlOwCdJA1m0FuJeA6_5RsoMt1pmGUc7k6_kPQoOnbogwHpu9LSyYWF33mwPLWHAc39aWT5NdgV_wwc8KWXny775X9_pvd0jNZdGwbpgJ6p1mKpGbOx-nQRMRJhk83eCthUBq-4gniuiuuguB3LrP3Mvzkd-hFxpOxwV9jXqxdcye2kt6okdRe91NeSb3vzDIyifvjahHyKAr_4OrBWI1adWy2bzqErTjCzyN_yOvizAZf34_r5YHkJHQJXyhPALCs0Awv0F_6phINbNW46VMa1Lyq_AETzmVcTETm2tXeG3H9p7liXXlmGmPFp54wuTke5fFrSJCU5V4Od77HXafQhw6ftKQV_Wuupp2f-J0iFaMqRnhweizctvo1bT7eVm00)
+<details><summary>Show UML Code</summary>
+<p>
+
+```
+@startuml
+!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/AWSCommon.puml
+!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/NetworkingAndContentDelivery/ELBApplicationLoadBalancer.puml
+cloud "EC2" {
+    node "K8s Platform Cluster" {
+       package "Policy Management Service" {
+            [policy-mgmt-service]
+        } 
+       package "Cloud Management Service" {
+         [cloud-mgmt-service]
+         [Cloud resources]
+       }
+        package "Network Storage" {
+          [network-storage]
+        }
+        package "Lifecycle Service" {
+          [lifecycle-service]
+        }
+        package "Cluster Management Service" {
+          [cluster-mgmt-service]
+        }
+
+            [cloud-mgmt-service] --> [Cloud resources] : creates/deletes/invokes
+            [cloud-mgmt-service] --> [policy-mgmt-service] : Validates infra
+            [cloud-mgmt-service] --> [network-storage] : Stores State
+            [lifecycle-service] -->  [cluster-mgmt-service] : CRUD
+            [lifecycle-service] -->  [cloud-mgmt-service] : CRUD
+            [lifecycle-service] -->  [network-storage] : Creates/deletes
+            [cluster-mgmt-service] --> [network-storage]: Stores State
+            [cluster-mgmt-service] --> [policy-mgmt-service]: Validate Config
+            [cluster-mgmt-service] --> [Kubernetes Cluster]: Manage/monitor
+       
+    }
+     node "Kubernetes Cluster" {
+            node "Control Plane Node" {
+              package "KubeApiServer" {
+                 [kube-api-server] --> [etcd] : read/write
+         }   
+               package "Kube Controller Manager" {
+                 [kube-controller-manager] --> [kube-api-server] : interfaces
+         }
+               package "Kube Scheduler" {
+                 [kube-schedular] --> [kube-api-server] : interfaces
+         }
+       }
+            node "Worker Node" {
+             node "Crate Namespaces" {
+              package "docs-ui"
+              package "docs-service"
+              package "automounts-service"
+          }
+            
+           node "Customer Namespaces" {
+              package "Customer app"
+              package "Customer app"
+              package "Customer app"
+          }
+       }      
+}
+@enduml
+
+```
+</p>
+</details>
+
+## Physical
+![Component](http://www.plantuml.com/plantuml/img/jPAnRjim48PtFGMhNHRGgUWKHyrGE4W3PCXy9iyoOP9778zsZSBlNib22JYL3I_X8e7uzFt7dtf80YpPk-gB3TfbWseh4jFtjcKuB7ehsxpE2LbJ40ooqEHRE2G7wpG-6wiff6P3t4G7OJIr7f8WjyOcQPVlRnrvJs4HFo_a1UL0lBEXNmRJJOuVwEmU-TW-FJykOtHMWrWApmJc4GQ9Hfv6qewoKVLJzxLMVoerh406LRtwbjIh0nbIlUfS7kF-4GNw5P7FtZI3Z2k2ta4_aEUOnlTUceIyjnhhUMxIt456SbOVxm2TtQ0-QeV_OoTrUPwVOSEWNfdsrY2dQuSPRhKuJfU6LLuZ1nISQQH0unqnkR7VWEfbs2lGnwZTu5DlUeicky5r7Mhq97LZUH2Wlqr3j6CRLo4KRMvyxr1ksIFJxsDTLRCLTGo2wfruXpnt-A9QbQ3REVC_qZa5Z6aefFfYaZ98Ja8U-VeinVO1hQlxUfcRLgcfbp9FcQqgk-MrEbKF64psxYy0)
+<details><summary>Show UML Code</summary>
+<p>
+
+```
+@startuml
+!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/AWSCommon.puml
+!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/NetworkingAndContentDelivery/ELBApplicationLoadBalancer.puml
+cloud "EC2" {
+    node "K8s Platform Cluster" {
+       node "Operations Cluster" {
+           package "cloud-mgmt-service"
+           package "cluster-mgmt-service"
+           package "policy-mgmt-service"
+           package "lifecycle-service"
+        } 
+       node "Infra Providers" {
+           package "AWS"
+       }
+       node "Kubernetes Cluster" {
+         node "Control Plane Node" {
+            package "kube Scheduler"
+            package "kube-controller-manager"
+            package "kube-apiserver"
+            package "etcd"
+            package "kubelet"
+            package "kube-proxy"
+
+      }
+       node "Crate Worker Node" {
+           package "Kubelet"
+           package "kube-proxy"
+           package "crate add-ons"
+      }
+      node "Customer Worker Node" {
+          package "Customer Worker"
+          package "kubelet"
+          package "kube-proxy"  
+
+        }
+   
+      }
+
+    }   
+}
+@enduml
+
+```
+</p>
+</details>
+
+## Security
+
+![Component](http://www.plantuml.com/plantuml/img/bP9FQm8n4CNl-oa6xxcNFIo2fs9RX1xJ8cbsLbEpISWVnSf-zsQR1XIjc-xjpRxvXPatS-UPzQ6NbT8jmcpvu60bcU-qxM4XW_DePt2g00pZExQ9beNKeOLdfgBgKNbuHRiN79CDWFBHGFfDxubBlzxKwVFWropuxTVm7bt3EV19TCYFNE8LIUO_jq50WY7Dv7irpOB7juVgR9GquD_3K9uST-YNn9MMWX_l0CsFePZtg3hBO6NrNhGv2Ih68Z6_nTZEZBZTlWmVQ1LwT1TXqkjwf7ZfRbDUT8kfpxdjUeV7JaXCdeACMdrGf9bSvLLGquUKsNcfXUJ9MFDj_PjSTlz0cliPrZIAp2nPSJETQ4r7ONQYUFxcCkvwL0amVaCrHzM6Ndu3)
+<details><summary>Show UML Code</summary>
+<p>
+
+```
+@startuml
+node "K8s Platform Cluster" {
+  package "Cloud Management Service" {
+    [cloud-mgmt-service\n{jwt_authz}]
+  }
+  package "Lifecycle Service" {
+    [lifecycle-service\n{jwt_authz}] -up->[cloud-mgmt-service\n{jwt_authz}]:[jwt_authc]
+ }
+ package "Cluster Management Service" {
+   [cluster-mgmt-service\n{jwt_authz}]
+ }
+ package "Policy Management Service" {
+   [policy-mgmt-service\n{jwt_authz}]
+ }
+ package "Infra Provider" {
+  [infra-provider\n{api_authz}]
+ }
+ package "Kubernetes Cluster" {
+ [Kubernetes Cluster\n{tls_authz}]
+ }
+ package "Node" {
+ [ssh_keyfile]
+ }
+  [lifecycle-service\n{jwt_authz}] -down-> [cluster-mgmt-service\n{jwt_authz}]:[jwt_authc]
+  [cloud-mgmt-service\n{jwt_authz}] -down->[policy-mgmt-service\n{jwt_authz}]:[jwt_authc]
+  [cluster-mgmt-service\n{jwt_authz}] -up->[policy-mgmt-service\n{jwt_authz}]:[jwt_authc]
+
+    [cloud-mgmt-service\n{jwt_authz}] -> [infra-provider\n{api_authz}]:[api_authc]
+  [lifecycle-service\n{jwt_authz}] -> [Kubernetes Cluster\n{tls_authz}]:[tls_pki]
+  [cluster-mgmt-service\n{jwt_authz}] -> [ssh_keyfile]:[ssh_pki]
+}
+@enduml
+```
+</p>
+</details>
