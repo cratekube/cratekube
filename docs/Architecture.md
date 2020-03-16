@@ -109,23 +109,21 @@ Infrastructure should be created in accordance with Cisco Infosec guidelines and
 
 ```
 @startuml
-!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/AWSCommon.puml
-!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/NetworkingAndContentDelivery/ELBApplicationLoadBalancer.puml
-       package "Policy Management Service" {
-            [policy-mgmt-service]
-        } 
+       package "Policy Management Service"   {
+            [policy-mgmt-service]  #00FF00
+        }
        package "Cloud Management Service" {
-         [cloud-mgmt-service]
+         [cloud-mgmt-service] #00FFFF
          [Cloud resources]
        }
         package "Network Storage" {
           [network-storage]
         }
         package "Lifecycle Service" {
-          [lifecycle-service]
+          [lifecycle-service] #FFB6C1
         }
         package "Cluster Management Service" {
-          [cluster-mgmt-service]
+          [cluster-mgmt-service] #fed8b1
         }
         package "Kubernetes Cluster" {
           [k8-cluster]
@@ -146,33 +144,30 @@ Infrastructure should be created in accordance with Cisco Infosec guidelines and
 </details>
 
 ## Logical
-![Component](http://www.plantuml.com/plantuml/img/jPHFJnin4CNl-odSt9ULUgeuL8I54nIXHYq7r8En9y6A_wp6DX6gyjrhusK4Sh9T8R6NtMXUVlFynlQP3nn3DBhvegpGKG9x367mfrs7V7UoKU4nFaGFA9mDOCE9SARZEw_vWy_lLgM2RzSEsq5pcqcTuJu0TbBvq2tlLhqpnjcJuVEQt43OETmgkrbQsHV61MZr1FZSNLwVBuT1Ay63SlRQSNdE4qG05aj2koZPuhB_kc1_6vOUwoImnTKtpsur3wchORsEkTseoC_0nPPlakxM9VOp-y5j-cd01hO2V582I3m-zyEBiZKR4rfVD7z8iMSLkS_E_WU-5rbLGyTgOI1u5r60fzAUDDHkJ96jWaE-6RiGo9PgwqkLG8T8rseDubbeE1p5lNwja-CfsfZzP10bYI8y5d2JFoTpOstxlOwCdJA1m0FuJeA6_5RsoMt1pmGUc7k6_kPQoOnbogwHpu9LSyYWF33mwPLWHAc39aWT5NdgV_wwc8KWXny775X9_pvd0jNZdGwbpgJ6p1mKpGbOx-nQRMRJhk83eCthUBq-4gniuiuuguB3LrP3Mvzkd-hFxpOxwV9jXqxdcye2kt6okdRe91NeSb3vzDIyifvjahHyKAr_4OrBWI1adWy2bzqErTjCzyN_yOvizAZf34_r5YHkJHQJXyhPALCs0Awv0F_6phINbNW46VMa1Lyq_AETzmVcTETm2tXeG3H9p7liXXlmGmPFp54wuTke5fFrSJCU5V4Od77HXafQhw6ftKQV_Wuupp2f-J0iFaMqRnhweizctvo1bT7eVm00)
+![Component](http://www.plantuml.com/plantuml/png/hLN1ZjCm4BttAwnoZbeue5KFQ27GoqAreW8ErHwyzgHOTUneREzgXVBls4qwwjOX6m6-HDMyl7dptiIzTfwZ3xMU2Ms3PFDFvPiv-pLZyHWhWSrlhXoxrTnN5cjMwk0yu0aHJyF5WUyZxjPg9PxO5sxYpngCPrl01oM0mFtPDKTaKUzhNxWESyTUBPVhzN99o9Pb7SgayAK6k-CS0-JndA4wBWHd0mfmTwTIInXgkm7_QF70jjuYtr-CipDTjN1TbOY6c3wh2iIJq31ipKwVwcVAr-iFRylNOwnz9YywlnCTyDAR2kJLVTvXnCwYU9Sxo5PC870FRY51Gtegys0FuAOH3g_5YdtdMib4ovIfa4yZosA9H2a_SF4HoOWbzvr8SiT8K_drsySf5AJm7mW69YcV-qn4UShZfkIUv3GJWwASW9NML6e_cUqct0EQDCVfTebatIulQckKjtZYcj5-qkMKlVnivmaNDNcqEbra1jZ6IhZ4qGVLaRvlLFg8ShvkdaE45BnHXJk2-b702vdoGU1oyOZgtDFsg7-a8-irQlgKnteB0XTr0fE6JDcAAUC1AoxEDwKTrx8LFq46FIh1THZ-jvtRWPn-M3m03WL4IMBQiGslmJM9U2H7QOKhWfgFrljb_2E81szh6upFeTaCirnjSF5rm6c22SsRPlv_GPdvlU9sTWr6fl__tm00)
 <details><summary>Show UML Code</summary>
 <p>
 
 ```
 @startuml
-!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/AWSCommon.puml
-!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/NetworkingAndContentDelivery/ELBApplicationLoadBalancer.puml
 cloud "EC2" {
     node "K8s Platform Cluster" {
        package "Policy Management Service" {
-            [policy-mgmt-service]
+            [policy-mgmt-service] #00FF00
         } 
        package "Cloud Management Service" {
-         [cloud-mgmt-service]
+         [cloud-mgmt-service] #00FFFF
          [Cloud resources]
        }
         package "Network Storage" {
           [network-storage]
         }
         package "Lifecycle Service" {
-          [lifecycle-service]
+          [lifecycle-service] #FFB6C1
         }
         package "Cluster Management Service" {
-          [cluster-mgmt-service]
+          [cluster-mgmt-service] #fed8b1
         }
-
             [cloud-mgmt-service] --> [Cloud resources] : creates/deletes/invokes
             [cloud-mgmt-service] --> [policy-mgmt-service] : Validates infra
             [cloud-mgmt-service] --> [network-storage] : Stores State
@@ -212,26 +207,25 @@ cloud "EC2" {
 }
 @enduml
 
+
 ```
 </p>
 </details>
 
 ## Physical
-![Component](http://www.plantuml.com/plantuml/img/jPAnRjim48PtFGMhNHRGgUWKHyrGE4W3PCXy9iyoOP9778zsZSBlNib22JYL3I_X8e7uzFt7dtf80YpPk-gB3TfbWseh4jFtjcKuB7ehsxpE2LbJ40ooqEHRE2G7wpG-6wiff6P3t4G7OJIr7f8WjyOcQPVlRnrvJs4HFo_a1UL0lBEXNmRJJOuVwEmU-TW-FJykOtHMWrWApmJc4GQ9Hfv6qewoKVLJzxLMVoerh406LRtwbjIh0nbIlUfS7kF-4GNw5P7FtZI3Z2k2ta4_aEUOnlTUceIyjnhhUMxIt456SbOVxm2TtQ0-QeV_OoTrUPwVOSEWNfdsrY2dQuSPRhKuJfU6LLuZ1nISQQH0unqnkR7VWEfbs2lGnwZTu5DlUeicky5r7Mhq97LZUH2Wlqr3j6CRLo4KRMvyxr1ksIFJxsDTLRCLTGo2wfruXpnt-A9QbQ3REVC_qZa5Z6aefFfYaZ98Ja8U-VeinVO1hQlxUfcRLgcfbp9FcQqgk-MrEbKF64psxYy0)
+![Component](http://www.plantuml.com/plantuml/png/VP0nQyCm48Lt_Of3dGrkXv8ngMcW1Df0XioAT4vDP4cSfD1GyjzhEqIjY-nR3F9txxrxIny4XTXg9hMD2lXhzSJXcq4tnYe4lbbus6eHQaijL3hwW7Gd4lJXa4HehF4Pf1ydv4aSEtAmATfZ6mgFT6uaSdWeotKtUVuczt-ZHhKuF6OtdDMDlEGioZAxe9iQvKLg_8Elro_FrQ_-5SRtlfcQ16p9dXk5vAUENUrtdDqbnWgRU40o633JM88gQm9PtVTl4Dwxjm7AMPqwFTZ9JrHH8_5fg90tKTsNAemupjF2DNqhan06gMRsDOOvTKVswy8PorPKaGW8Uqidf7HyJcgJCShuvF_BmKKeLLZZUKeo2X9zi2tIT9Qabj2LSvpDbJ8V5U1MIWgJWh7XqxzSsHADYgt-0G00)
 <details><summary>Show UML Code</summary>
 <p>
 
 ```
 @startuml
-!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/AWSCommon.puml
-!include https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist/NetworkingAndContentDelivery/ELBApplicationLoadBalancer.puml
 cloud "EC2" {
     node "K8s Platform Cluster" {
        node "Operations Cluster" {
-           package "cloud-mgmt-service"
-           package "cluster-mgmt-service"
-           package "policy-mgmt-service"
-           package "lifecycle-service"
+           package "cloud-mgmt-service" #00FFFF
+           package "cluster-mgmt-service" #fed8b1
+           package "policy-mgmt-service" #00FF00
+           package "lifecycle-service" #FFB6C1
         } 
        node "Infra Providers" {
            package "AWS"
@@ -252,7 +246,7 @@ cloud "EC2" {
            package "crate add-ons"
       }
       node "Customer Worker Node" {
-          package "Customer Worker"
+          package "Customer App"
           package "kubelet"
           package "kube-proxy"  
 
@@ -270,7 +264,7 @@ cloud "EC2" {
 
 ## Security
 
-![Component](http://www.plantuml.com/plantuml/img/bP9FQm8n4CNl-oa6xxcNFIo2fs9RX1xJ8cbsLbEpISWVnSf-zsQR1XIjc-xjpRxvXPatS-UPzQ6NbT8jmcpvu60bcU-qxM4XW_DePt2g00pZExQ9beNKeOLdfgBgKNbuHRiN79CDWFBHGFfDxubBlzxKwVFWropuxTVm7bt3EV19TCYFNE8LIUO_jq50WY7Dv7irpOB7juVgR9GquD_3K9uST-YNn9MMWX_l0CsFePZtg3hBO6NrNhGv2Ih68Z6_nTZEZBZTlWmVQ1LwT1TXqkjwf7ZfRbDUT8kfpxdjUeV7JaXCdeACMdrGf9bSvLLGquUKsNcfXUJ9MFDj_PjSTlz0cliPrZIAp2nPSJETQ4r7ONQYUFxcCkvwL0amVaCrHzM6Ndu3)
+![Component](http://www.plantuml.com/plantuml/png/ZP9VQy8m5CNV-oc2UoxKbo5zA39166v3s6Cc4fDRpKoJaZ-A4x_xObt0RDCcRpSv-N4uvuwD9TgwHcHICK23sSYWkI2sLhf14-6C1Jr0nmoXbj0jMNl9H2Z7q2kHVcf0MlGEUiSfT39_C3qBycRTsDnSdZxayNDlbyJPpTTfWHwAOkgFLv-kmI-y1dgW0duJ4HRXwHPnEdrwd0op977kshpgTLdYCD15verU1z35SZi2J2-AkndKm4QhOKoUAy7fuGwuxGIzsHP5p7sMjIPehjMEiz0dvkVBlFsvz1ZIye29ly_S2hG42oPQ2VpttbEiCFzJtXI3opzZDiij76ekeDEaTCRKNkPL76rASVth6DWXt5HolvUmQ-daTC_L_G9B78PqgrL_eoK-3-sMfqFZkijkwW2dR0oIkKPy0m00)
 <details><summary>Show UML Code</summary>
 <p>
 
@@ -278,16 +272,17 @@ cloud "EC2" {
 @startuml
 node "K8s Platform Cluster" {
   package "Cloud Management Service" {
-    [cloud-mgmt-service\n{jwt_authz}]
+    [cloud-mgmt-service\n{jwt_authz}] #00FFFF
   }
   package "Lifecycle Service" {
+     [lifecycle-service\n{jwt_authz}] #FFB6C1
     [lifecycle-service\n{jwt_authz}] -up->[cloud-mgmt-service\n{jwt_authz}]:[jwt_authc]
  }
  package "Cluster Management Service" {
-   [cluster-mgmt-service\n{jwt_authz}]
+   [cluster-mgmt-service\n{jwt_authz}] #fed8b1
  }
  package "Policy Management Service" {
-   [policy-mgmt-service\n{jwt_authz}]
+   [policy-mgmt-service\n{jwt_authz}] #00FF00
  }
  package "Infra Provider" {
   [infra-provider\n{api_authz}]
@@ -301,9 +296,8 @@ node "K8s Platform Cluster" {
   [lifecycle-service\n{jwt_authz}] -down-> [cluster-mgmt-service\n{jwt_authz}]:[jwt_authc]
   [cloud-mgmt-service\n{jwt_authz}] -down->[policy-mgmt-service\n{jwt_authz}]:[jwt_authc]
   [cluster-mgmt-service\n{jwt_authz}] -up->[policy-mgmt-service\n{jwt_authz}]:[jwt_authc]
-
-    [cloud-mgmt-service\n{jwt_authz}] -> [infra-provider\n{api_authz}]:[api_authc]
-  [lifecycle-service\n{jwt_authz}] -> [Kubernetes Cluster\n{tls_authz}]:[tls_pki]
+  [cloud-mgmt-service\n{jwt_authz}] -> [infra-provider\n{api_authz}]:[api_authc]
+  [cluster-mgmt-service\n{jwt_authz}] -> [Kubernetes Cluster\n{tls_authz}]:[tls_pki]
   [cluster-mgmt-service\n{jwt_authz}] -> [ssh_keyfile]:[ssh_pki]
 }
 @enduml
