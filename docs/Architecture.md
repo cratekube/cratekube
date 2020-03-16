@@ -103,7 +103,7 @@ Infrastructure should be created in accordance with Cisco Infosec guidelines and
 # Diagrams
 
 ## Component
-![Component](http://www.plantuml.com/plantuml/png/dPDFIyCm6CRl_HGlyrnMBp9wa66b5_yW3hsK7RBqRGbDav6aao5-TzEbQjQLKCmb6tduFM-U9rrhGvJfMXw1Mtj26r8ZB5uaP_G8JqJOloqA0njK1qPnOLMV4NYhs9-qSLkt9jPEjGMuIf8yJv9VwTU5HyPbLqvP-0O5xLKZUC-sorCvba8jEqLHRoFFTMJxZEP3gWOsHYfIdxj18TnfhDtf09ecFR8AwP5od9mS2lvpxasUvtStsNM8cl5E6rJ1O5moJZZEfi9ojGiwF7GxL08DQXZCHkHc5Gzm__xkPwYNEBwzh09Ie0g9TLkMoB7VcJZ81lKyuFJxIk6TS5RsM62YKcGcRDmlfAU7WDfk5cOfeG8TP3hw7fMzljtFHjW9_m-Ol4bsdhCF6iqS3cMSIHWJBEgl9yYag5Wzb-O_mdJu69Qj5CnE5grHb5tBlm40)
+![Component](http://www.plantuml.com/plantuml/svg/dPDFIyCm6CRl_HGlyrnMBp9wa66b5_yW3hsK7RBqRGbDav6aao5-TzEbQjQLKCmb6tduFM-U9rrhGvJfMXw1Mtj26r8ZB5uaP_G8JqJOloqA0njK1qPnOLMV4NYhs9-qSLkt9jPEjGMuIf8yJv9VwTU5HyPbLqvP-0O5xLKZUC-sorCvba8jEqLHRoFFTMJxZEP3gWOsHYfIdxj18TnfhDtf09ecFR8AwP5od9mS2lvpxasUvtStsNM8cl5E6rJ1O5moJZZEfi9ojGiwF7GxL08DQXZCHkHc5Gzm__xkPwYNEBwzh09Ie0g9TLkMoB7VcJZ81lKyuFJxIk6TS5RsM62YKcGcRDmlfAU7WDfk5cOfeG8TP3hw7fMzljtFHjW9_m-Ol4bsdhCF6iqS3cMSIHWJBEgl9yYag5Wzb-O_mdJu69Qj5CnE5grHb5tBlm40)
 <details><summary>Show UML Code</summary>
 <p>
 
@@ -144,7 +144,7 @@ Infrastructure should be created in accordance with Cisco Infosec guidelines and
 </details>
 
 ## Logical
-![Component](http://www.plantuml.com/plantuml/png/hLN1ZjCm4BttAwnoZbeue5KFQ27GoqAreW8ErHwyzgHOTUneREzgXVBls4qwwjOX6m6-HDMyl7dptiIzTfwZ3xMU2Ms3PFDFvPiv-pLZyHWhWSrlhXoxrTnN5cjMwk0yu0aHJyF5WUyZxjPg9PxO5sxYpngCPrl01oM0mFtPDKTaKUzhNxWESyTUBPVhzN99o9Pb7SgayAK6k-CS0-JndA4wBWHd0mfmTwTIInXgkm7_QF70jjuYtr-CipDTjN1TbOY6c3wh2iIJq31ipKwVwcVAr-iFRylNOwnz9YywlnCTyDAR2kJLVTvXnCwYU9Sxo5PC870FRY51Gtegys0FuAOH3g_5YdtdMib4ovIfa4yZosA9H2a_SF4HoOWbzvr8SiT8K_drsySf5AJm7mW69YcV-qn4UShZfkIUv3GJWwASW9NML6e_cUqct0EQDCVfTebatIulQckKjtZYcj5-qkMKlVnivmaNDNcqEbra1jZ6IhZ4qGVLaRvlLFg8ShvkdaE45BnHXJk2-b702vdoGU1oyOZgtDFsg7-a8-irQlgKnteB0XTr0fE6JDcAAUC1AoxEDwKTrx8LFq46FIh1THZ-jvtRWPn-M3m03WL4IMBQiGslmJM9U2H7QOKhWfgFrljb_2E81szh6upFeTaCirnjSF5rm6c22SsRPlv_GPdvlU9sTWr6fl__tm00)
+![Component](http://www.plantuml.com/plantuml/svg/hLN1ZjCm4BttAwnoZbeue5KFQ27GoqAreW8ErHwyzgHOTUneREzgXVBls4qwwjOX6m6-HDMyl7dptiIzTfwZ3xMU2Ms3PFDFvPiv-pLZyHWhWSrlhXoxrTnN5cjMwk0yu0aHJyF5WUyZxjPg9PxO5sxYpngCPrl01oM0mFtPDKTaKUzhNxWESyTUBPVhzN99o9Pb7SgayAK6k-CS0-JndA4wBWHd0mfmTwTIInXgkm7_QF70jjuYtr-CipDTjN1TbOY6c3wh2iIJq31ipKwVwcVAr-iFRylNOwnz9YywlnCTyDAR2kJLVTvXnCwYU9Sxo5PC870FRY51Gtegys0FuAOH3g_5YdtdMib4ovIfa4yZosA9H2a_SF4HoOWbzvr8SiT8K_drsySf5AJm7mW69YcV-qn4UShZfkIUv3GJWwASW9NML6e_cUqct0EQDCVfTebatIulQckKjtZYcj5-qkMKlVnivmaNDNcqEbra1jZ6IhZ4qGVLaRvlLFg8ShvkdaE45BnHXJk2-b702vdoGU1oyOZgtDFsg7-a8-irQlgKnteB0XTr0fE6JDcAAUC1AoxEDwKTrx8LFq46FIh1THZ-jvtRWPn-M3m03WL4IMBQiGslmJM9U2H7QOKhWfgFrljb_2E81szh6upFeTaCirnjSF5rm6c22SsRPlv_GPdvlU9sTWr6fl__tm00)
 <details><summary>Show UML Code</summary>
 <p>
 
@@ -213,14 +213,13 @@ cloud "EC2" {
 </details>
 
 ## Physical
-![Component](http://www.plantuml.com/plantuml/png/VP0nQyCm48Lt_Of3dGrkXv8ngMcW1Df0XioAT4vDP4cSfD1GyjzhEqIjY-nR3F9txxrxIny4XTXg9hMD2lXhzSJXcq4tnYe4lbbus6eHQaijL3hwW7Gd4lJXa4HehF4Pf1ydv4aSEtAmATfZ6mgFT6uaSdWeotKtUVuczt-ZHhKuF6OtdDMDlEGioZAxe9iQvKLg_8Elro_FrQ_-5SRtlfcQ16p9dXk5vAUENUrtdDqbnWgRU40o633JM88gQm9PtVTl4Dwxjm7AMPqwFTZ9JrHH8_5fg90tKTsNAemupjF2DNqhan06gMRsDOOvTKVswy8PorPKaGW8Uqidf7HyJcgJCShuvF_BmKKeLLZZUKeo2X9zi2tIT9Qabj2LSvpDbJ8V5U1MIWgJWh7XqxzSsHADYgt-0G00)
+![Component](http://www.plantuml.com/plantuml/svg/VP0nQyCm48Lt_Of3dGrkXv8ngMcW1Df0XioAT4vDP4cSfD1GyjzhEqIjY-nR3F9txxrxIny4XTXg9hMD2lXhzSJXcq4tnYe4lbbus6eHQaijL3hwW7Gd4lJXa4HehF4Pf1ydv4aSEtAmATfZ6mgFT6uaSdWeotKtUVuczt-ZHhKuF6OtdDMDlEGioZAxe9iQvKLg_8Elro_FrQ_-5SRtlfcQ16p9dXk5vAUENUrtdDqbnWgRU40o633JM88gQm9PtVTl4Dwxjm7AMPqwFTZ9JrHH8_5fg90tKTsNAemupjF2DNqhan06gMRsDOOvTKVswy8PorPKaGW8Uqidf7HyJcgJCShuvF_BmKKeLLZZUKeo2X9zi2tIT9Qabj2LSvpDbJ8V5U1MIWgJWh7XqxzSsHADYgt-0G00)
 <details><summary>Show UML Code</summary>
 <p>
 
 ```
 @startuml
 cloud "EC2" {
-    node "K8s Platform Cluster" {
        node "Operations Cluster" {
            package "cloud-mgmt-service" #00FFFF
            package "cluster-mgmt-service" #fed8b1
@@ -252,9 +251,7 @@ cloud "EC2" {
 
         }
    
-      }
-
-    }   
+      }  
 }
 @enduml
 
@@ -264,7 +261,7 @@ cloud "EC2" {
 
 ## Security
 
-![Component](http://www.plantuml.com/plantuml/png/ZP9VQy8m5CNV-oc2UoxKbo5zA39166v3s6Cc4fDRpKoJaZ-A4x_xObt0RDCcRpSv-N4uvuwD9TgwHcHICK23sSYWkI2sLhf14-6C1Jr0nmoXbj0jMNl9H2Z7q2kHVcf0MlGEUiSfT39_C3qBycRTsDnSdZxayNDlbyJPpTTfWHwAOkgFLv-kmI-y1dgW0duJ4HRXwHPnEdrwd0op977kshpgTLdYCD15verU1z35SZi2J2-AkndKm4QhOKoUAy7fuGwuxGIzsHP5p7sMjIPehjMEiz0dvkVBlFsvz1ZIye29ly_S2hG42oPQ2VpttbEiCFzJtXI3opzZDiij76ekeDEaTCRKNkPL76rASVth6DWXt5HolvUmQ-daTC_L_G9B78PqgrL_eoK-3-sMfqFZkijkwW2dR0oIkKPy0m00)
+![Component](http://www.plantuml.com/plantuml/svg/ZP9VQy8m5CNV-oc2UoxKbo5zA39166v3s6Cc4fDRpKoJaZ-A4x_xObt0RDCcRpSv-N4uvuwD9TgwHcHICK23sSYWkI2sLhf14-6C1Jr0nmoXbj0jMNl9H2Z7q2kHVcf0MlGEUiSfT39_C3qBycRTsDnSdZxayNDlbyJPpTTfWHwAOkgFLv-kmI-y1dgW0duJ4HRXwHPnEdrwd0op977kshpgTLdYCD15verU1z35SZi2J2-AkndKm4QhOKoUAy7fuGwuxGIzsHP5p7sMjIPehjMEiz0dvkVBlFsvz1ZIye29ly_S2hG42oPQ2VpttbEiCFzJtXI3opzZDiij76ekeDEaTCRKNkPL76rASVth6DWXt5HolvUmQ-daTC_L_G9B78PqgrL_eoK-3-sMfqFZkijkwW2dR0oIkKPy0m00)
 <details><summary>Show UML Code</summary>
 <p>
 
