@@ -1,5 +1,11 @@
-# Overview
-This document specifies the process for developing a new component in the CrateKube project. This process is based on the CrateKube's team experience and industry standard best practices. 
+## Introduction
+This document is designed to provide a set of guidelines for contributors to develop new Cisco CrateKube features or modify existing ones. New 
+contributors and developers who are unfamiliar with our development process should refer to this document before submitting pull requests.
+We're pretty straight-forward with how we develop our microservices, but we also like to keep things consistent so 
+please read on if you are interested in becoming a contributor.
+
+## Who is this for?
+All developers and contributors who are going to develop new features or modify existing features on the CrateKube open source project.
 
 # Stages
 ##  Proof-of-Concept [ Optional ]
