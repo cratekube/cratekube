@@ -1,17 +1,14 @@
-Overview
-========
+# Overview
 
-This article proposes a target architecture for Crate's adoption of Kubernetes (k8s). Kubernetes is a container orchestration system that covers many of the same functions as a traditional system administrator. It has multiple, abstract components that can be used for managing application life cycle management through automation in a distributed architecture and is currently the most popular solution for running containers at scale.
+This document proposes a target architecture for the [MVaP state](https://www.toptal.com/designers/product-design/minimum-valuable-product) of a Kubernetes-based platform called CrateKube. CrateKube adds many features and value-added services to simplify the management of the Kubernetes orchestrator. Kubernetes makes it easy to manage containers, and CrateKube makes it easy to manage Kubernetes.
 
-The proposed architecture is meant to provide Kubernetes as a product, such that it can be adopted and managed by anyone as a turn-key solution. This will require that infrastructure is provided by third-party platforms and is accessible to automation through a robust set of provisioning APIs. The final product should yield long term cost saving benefits in the form of reduced licensing and operational costs.
+This architecture proposal is meant to provide a turn-key solution that can be adopted by anyone interested in running containers on a Kubernetes platform. This will require that infrastructure is provided by third-party platforms and is accessible to automation through a robust set of provisioning APIs. The final product should yield long term cost saving benefits in the form of reduced licensing and operational costs.
 
-Components
-==========
+# Components
 
-The following architecture is compromised of multiple components. At a high level, a distinction can be drawn between the components that are provided as a part of Kubernetes and those that will be created by Crate to instantiate and manage Kubernetes. For reference, both types of components are listed below.
+The following architecture is comprised of multiple components. At a high level, a distinction can be drawn between the components that are provided as a part of Kubernetes and those that will be created by the CrateKube team to instantiate and manage Kubernetes. For reference, both types of components are listed below.
 
-Kubernetes
-----------
+## Kubernetes Components
 
 ### Control Plane
 
@@ -19,7 +16,7 @@ The control plane is a collection of four critical Kubernetes components that ca
 
 #### kube-apiserver
 
-The `kube-apiserver` provides an internal and external interface to Kubernetes. It serves the Kubernetes API, handles REST requests, and directly interfaces with `etcd` to watch and store cluster state.
+The `kube-apiserver` (referred to as the `API Server` in this document) provides an internal and external interface to Kubernetes. It serves the Kubernetes API, handles REST requests, and directly interfaces with `etcd` to watch and store cluster state.
 
 #### kube-scheduler
 
@@ -27,7 +24,7 @@ The `kube-scheduler` indirectly watches `etcd` through the `API Server` fo
 
 #### kube-controller-manager
 
-The `kube-controller-manager` is responsible for managing Kubernetes controllers, such as `DaemonSet` or `ReplicationController`. It helps drive cluster state towards desired cluster state. A variant of this component exists specifically for third party vendors, the `cloud-controller-manager`. It provides similar functionality be geared specifically towards the target cloud, e.g., DigitalOcean, AWS, GKE, etc.
+The `kube-controller-manager` is responsible for managing Kubernetes controllers, such as `DaemonSet` or `ReplicationController`. It helps drive cluster state towards desired cluster state. A variant of this component exists specifically for third party vendors, the `cloud-controller-manager`. It provides similar functionality geared specifically towards the target cloud, e.g., DigitalOcean, AWS, GKE, etc.
 
 #### Etcd
 
@@ -35,7 +32,7 @@ The `kube-controller-manager` is responsible for managing Kubernetes controlle
 
 ### Node
 
-A Kubernetes node contains components for interacting with the Kubernetes API and host networking.
+A Kubernetes node is a generic term for a set of resources that provide the ability to interact with the Kubernetes API and host networking. In the CrateKube system, nodes are backed by infrastructure by third-party vendors such as AWS, GKE, etc.
 
 #### Kubelet
 
@@ -43,62 +40,59 @@ The `kubelet` is responsible for watching the `API Server` for all pods that
 
 #### Kube-Proxy
 
-The `kube-proxy` provides IP networking to a pod. It provides simple round-robin load balancing and routes virtual IPs of Kubernetes services into IPs of backend Pods.
+The `kube-proxy` provides IP networking to a pod. It provides simple round-robin load balancing and routes virtual IPs of Kubernetes services into IPs of backend pods.
 
-Crate
------
+## CrateKube
+
 
 ### Platform
 
-These services reflect the general creation and management of cloud infrastructure and Kubernetes. They are exposed to customers in varying degrees and provide value by abstracting platform operations. All services are expected to live outside the customer cluster unless otherwise specified. Services are expected to be initially deployed through a template in the AWS marketplace. This template will create a temporary cluster for bootstrapping everything, but if technically necessary, a singleton may be created to handle initial provisioning, e.g., using `kind` or a virtual appliance to create provision the components necessary to create the initially infrastructure and cluster.
+These CrateKube platform components provide the ability to create and manage cloud infrastructure and Kubernetes clusters. They are exposed to customers in varying degrees and provide value by abstracting platform operations. All services are expected to live outside the customer cluster unless otherwise specified. Services are expected to be initially deployed through a template in the AWS marketplace. This template will create a temporary cluster for bootstrapping everything, but if technically necessary, a singleton may be created to handle initial provisioning, e.g., using `kind` or a virtual appliance to create provision the components necessary to create the initially infrastructure and cluster.
 
 #### Cloud Management Service
 
 The `cloud-mgmt-service` will be in charge of provisioning and monitoring all cloud resources and services. Cloud resources are loosely defined as managed virtual infrastructure so as to include cluster created on-prem through Openstack or vSphere.
 
-In AWS, this is expected to provision any and all resource necessary to create a Kubernetes cluster, including but not limited to IAM, VPC, EC2, etc. [Terraform ](https://www.terraform.io/)is expected to be used whenever viable.  Account access will be governed by which functions are implemented, end state will require root access. Terraform templates must provide enough customization for reconfiguring resources to better match compliances rules. State files generated by Terraform must be persisted for later use.
+In AWS, this is expected to provision any and all resources necessary to prepare for the creation of a Kubernetes cluster, including but not limited to IAM, VPC, EC2, etc. [Terraform](https://www.terraform.io/) is expected to be used whenever viable. This service will require root access to the user's account with the infrastructure provider. Terraform templates will need to have configuration options that support the compliance rules implemented in the `policy-mgmt-service`. The state files generated by Terraform must be persisted for later use.
 
 #### Cluster Management Service
 
-The `cluster-mgmt-service` will provide everything needed for creating and monitoring a Kubernetes cluster and configuring it post-bootstrap. For direct cluster creation [RKE](https://rancher.com/docs/rke/latest/en/) is expected to be used. For hosted cluster creation, such as AKS, EKS, or GKE,  `cluster-mgmt-service` should invoke `cloud-mgmt-service`. State files generated by RKE must be persisted for later use.
+The `cluster-mgmt-service` will be responsible for the creation, monitoring, and configuration of Kubernetes clusters. It is expected that [RKE](https://rancher.com/docs/rke/latest/en/) will be used by this service to provision clusters. For hosted cluster creation, such as AKS, EKS, or GKE, it is expected that `cluster-mgmt-service` will invoke `cloud-mgmt-service`. Any state files generated by RKE must be persisted for later use.
 
 #### Policy Management Service
 
-The `policy-mgmt-service` will provide compliance validation for all infrastructure provisioned through platform services. It does not require access to the cloud provider since it only needs to check a desired configuration against a set of known rules. In this context, the service will behave similarly to a Kubernetes admission controller that only processes validation requests.
+The `policy-mgmt-service` will provide a single place to declare security and compliance policies that should be used to configure both cloud and Kubernetes resources. This system is not expected to take action on these settings, as the responsibility for resource configuration lies with other services such as `cloud-mgmt-service` and `cluster-mgmt-service`.
+
+At a later date, this service may also provide the ability to validate that a policy is being followed across the system as well as enforce a policy across the system. Both of these features are not expected to be a part of the MVaP.
 
 #### Lifecycle Service
 
-The `lifecycle-service` will be the primary initiator of all platform services. It will track lifecycle of all platform components and handle service creation, update, and teardown. The service should be able to reconfigure itself as needed to be aware of newly created services. It will interact directly with the `cloud-mgmt-service` and the `cluster-mgmt-service` to create cloud resources and Kubernetes clusters.
+The `lifecycle-service` will be the primary initiator of all platform services. It will track lifecycle of all platform components and handle service creation, update, and teardown. The service should be able to reconfigure and upgrade itself as needed to be aware of newly created services. It is expected to interact directly with the `cloud-mgmt-service` and the `cluster-mgmt-service` to create cloud resources and Kubernetes clusters.
 
 ### Add Ons
 
-These services are available for use in any given Kubernetes cluster, primarily but not exclusively developed by Crate.
+These custom services are available for use in any given Kubernetes cluster.
 
 #### Docs
 
-The `docs-service` and `docs-webui` will provide living documentation on how to use Crate. Eventually, it will provide detailed information and where possible an interactive terminal for users to try features.
+The CrateKube documentation will provide useful information regarding use the system. Eventually, it is expected to provide an interactive terminal for users to try features of the system from within the documentation.
 
 #### Automounts
 
-The `automounts-service` service will provide pods access to legacy EngIT NFS storage. It is expected to be available only to on-prem clusters, however, depending on cost and security, there may be a way to expose on-prem data in AWS. The solution may be implemented through `autofs`, however, this is an implementation that should be considered at time of design.
+Automounts will give users the ability to mount NFS storage directly into a container. The solution may be implemented through [autofs](https://www.linuxtechi.com/automount-nfs-share-in-linux-using-autofs/), however, this is an implementation detail that should be considered at time of design.
 
-MVP
-===
+# MVaP
 
-MVP should allow for the following:
+The MVaP for the CrateKube system is expected to provide the following functionality:
 
--   K8s Cluster Provisioning
--   Alignment with Leadership
-    -   Public Cloud
-    -   No-Ops
--   Policy Management
--   Focus on New Users
--   Docs
--   Legacy IT storage Access
+- One-click Kubernetes cluster provisioning to AWS
+- Consolidated policy management
+- Interactive docs
+- Automated NFS storage mounting
 
-To that end, MVP should have the ability to instantiate a Kubernetes cluster in AWS using RKE and EC2 instances. All platform services will need to be created. These services should be bootstrapped via a template in the AWS marketplace, culminating in the `lifecycle-service` creating all platform components and consequently all customer infrastructure and cluster components.
+To that end, the MVaP should have the ability to instantiate a Kubernetes cluster in AWS using RKE and EC2 instances. All platform services will need to be created. It is expected that the interface to the customer for one-click provisioning will be an AWS marketplace entry that bootstraps the `lifecycle-service`. The `lifecycle-service` would then be responsible for creating all platform components and consequently all customer infrastructure and cluster components.
 
-Infrastructure should be created in accordance with Cisco Infosec guidelines and validated using the `policy-mgmt-service`. Clusters are not expected to be created with `PodSecurityPolicy`  or custom RBAC.
+The default security policies for the MVaP are expected to be in compliance with Cisco's Infosec standards, but the language used to describe the policies will follow NIST conventions. Additionally, clusters created in the MVaP are not expected to use `PodSecurityPolicy` or custom RBAC.
 
 # Diagrams
 
@@ -144,7 +138,7 @@ Infrastructure should be created in accordance with Cisco Infosec guidelines and
 </details>
 
 ## Logical
-![Component](http://www.plantuml.com/plantuml/svg/hLN1ZjCm4BttAwnoZbeue5KFQ27GoqAreW8ErHwyzgHOTUneREzgXVBls4qwwjOX6m6-HDMyl7dptiIzTfwZ3xMU2Ms3PFDFvPiv-pLZyHWhWSrlhXoxrTnN5cjMwk0yu0aHJyF5WUyZxjPg9PxO5sxYpngCPrl01oM0mFtPDKTaKUzhNxWESyTUBPVhzN99o9Pb7SgayAK6k-CS0-JndA4wBWHd0mfmTwTIInXgkm7_QF70jjuYtr-CipDTjN1TbOY6c3wh2iIJq31ipKwVwcVAr-iFRylNOwnz9YywlnCTyDAR2kJLVTvXnCwYU9Sxo5PC870FRY51Gtegys0FuAOH3g_5YdtdMib4ovIfa4yZosA9H2a_SF4HoOWbzvr8SiT8K_drsySf5AJm7mW69YcV-qn4UShZfkIUv3GJWwASW9NML6e_cUqct0EQDCVfTebatIulQckKjtZYcj5-qkMKlVnivmaNDNcqEbra1jZ6IhZ4qGVLaRvlLFg8ShvkdaE45BnHXJk2-b702vdoGU1oyOZgtDFsg7-a8-irQlgKnteB0XTr0fE6JDcAAUC1AoxEDwKTrx8LFq46FIh1THZ-jvtRWPn-M3m03WL4IMBQiGslmJM9U2H7QOKhWfgFrljb_2E81szh6upFeTaCirnjSF5rm6c22SsRPlv_GPdvlU9sTWr6fl__tm00)
+![Component](https://www.plantuml.com/plantuml/svg/fLN1Zfim5Bpp5LPwHabxg5OvLDkbvR9jj6hKzX3buBKVgHLZ8zliQbNnxtt6927Wi6cB5A7WOTwycMTpQnqrhYvbmgIkEPbzpjxDoE-4uAKq1pAxlx7aGL9NQ5EIJDRMWJaWyAeeszCTuXwq5Eo5VAKA_vQW75c3UH8CUk3ssbGjCYrtfKjjm6p9cyKYpnUB8x8P5SXQWQ_mRzesOjnvtaC5BWDMruQ1tIR3ggUoAt3Fskp9scc33ywxsQYmcjgmkXthFp5z4GMm5oOXxin67jPxolFyxdtsTegrY-HLuz6P5ZZqfW1-ynYhSD7EDFqmTf0i2JD07TWv1md-BjIJteEzaZ0w5KloWqh1FIqHgZ3qIh9XB4ZayqEMjKEoSvQ8xvxaacDBadtx_kbgYh72loA8T9AT-poq9AOvQigK9nCqiQ1EEP5CgqBihcQxhn_1AD_7uN11iZ3Byr8hWGgJf3UOtQ4qUcjuoWGSYd56It-0AI0hV3R4zNQI9_rO2RzxndoXaJr2Kbg9jWcK6de0nxWF1dFXysSZ-cOs-1iIdLKadKPvtCDJjTaHd9O1t6aOALlYXa5V2ihw8z9CQrcpNy1hEId11WpzryfD9AUVE9VOVpIWBac3mzLgND4IREN99xBacjcq5hF9zMuIBu9exNIfQ-MYq2RflzUfn5dKfU_a6f57DAsgYoB-2tGoFToI9ha5nV5x_mS0)
 <details><summary>Show UML Code</summary>
 <p>
 
@@ -154,7 +148,7 @@ cloud "EC2" {
     node "K8s Platform Cluster" {
        package "Policy Management Service" {
             [policy-mgmt-service] #00FF00
-        } 
+        }
        package "Cloud Management Service" {
          [cloud-mgmt-service] #00FFFF
          [Cloud resources]
@@ -177,7 +171,7 @@ cloud "EC2" {
             [cluster-mgmt-service] --> [network-storage]: Stores State
             [cluster-mgmt-service] --> [policy-mgmt-service]: Validate Config
             [cluster-mgmt-service] --> [Kubernetes Cluster]: Manage/monitor
-       
+
     }
      node "Kubernetes Cluster" {
             node "Control Plane Node" {
@@ -192,12 +186,12 @@ cloud "EC2" {
          }
        }
             node "Worker Node" {
-             node "Crate Namespaces" {
+             node "CrateKube Namespaces" {
               package "docs-ui"
               package "docs-service"
               package "automounts-service"
           }
-            
+
            node "Customer Namespaces" {
               package "Customer app"
               package "Customer app"
@@ -213,7 +207,7 @@ cloud "EC2" {
 </details>
 
 ## Physical
-![Component](http://www.plantuml.com/plantuml/svg/VPEnQiCm48PtFSMXpWQtG-cOr3HG0cqWGsP5kgGciYHEKcWeUVSwDi5rELkhl_lkln-yY4bHoeqLslfiGBvLJn9-1FJFUOCWFmEIIhLt4IgROqBgaE45fK_gs9ATf6YEJIeYqhdMAE6XB5Vju_bUzt_YWEPb_yXE16zhVU5Mb2KxOEi3weks-0TVhLwVgy5_XV6zx-v02ZRapxL1YbF7BdTRAUwAiM6TzqWE4_ADzL3bNI9lOMELG_Zm1dk8MNLgVR3LNsYoRLtJKA5xgRsLgfmwpjCgrBTM9Y5CsipCMqnpza3--oA5O2kgI2M4dQSJqd0yerepYzWzt7VTRL765Dv5EKvo3v9ZyWqIbsLi6z1b25BCbp8N5Q0hPGXp3mOWhcA1pjp-o5y0)
+![Component](hhttps://www.plantuml.com/plantuml/svg/VLF1Ri8m3BtdAwpiNAdROTeHLWq98Mr873Y7nB28D8dS50rD_FjIs81LRdrqdjzxUN4cJLAKsje9xK9hGBvLJnA-1LpA1uCWFoAIIZRu1YhNDWdf3j9LL7glTXbv9YdgNPsA1kbWDKfuACjPhW7ycQu_iKNpidba9s9mLXyvYR9a1vpTeZvgXtVmsUprkRhnd_vVT-wtf619uM0DKZDqr-bw9GNFi6WtI1uJye5TG5NmYOA3fLCUuJttUaetgNtcWvN-HDEwp3KCAlI5r7MPAf_xesWLRHVA80YJDYFp3jCOUwJmTPH2i15LUQEmomdMWVP8N01NkWKZncfnvxfJEYUeZ2do4ikUerz3-Pr2dOqC-haoNg7J62K7OCBXx0A8kntySvMx9p51R_Al_040)
 <details><summary>Show UML Code</summary>
 <p>
 
@@ -225,7 +219,7 @@ cloud "EC2" {
            package "cluster-mgmt-service" #fed8b1
            package "policy-mgmt-service" #00FF00
            package "lifecycle-service" #FFB6C1
-        } 
+        }
        node "Infra Providers" {
            package "AWS"
        }
@@ -239,10 +233,10 @@ cloud "EC2" {
             package "kube-proxy"
 
       }
-       node "Crate Worker Node" {
+       node "CrateKube Worker Node" {
            package "Kubelet"
            package "kube-proxy"
-           package "crate add-ons"
+           package "cratekube add-ons"
       }
       node "Customer Worker Node" {
           package "Customer App"
@@ -250,7 +244,7 @@ cloud "EC2" {
           package "kube-proxy"  
 
         }
-   
+
       }  
 }
 @enduml
