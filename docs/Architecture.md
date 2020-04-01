@@ -1,21 +1,21 @@
 Overview
 ========
 
-This article proposes a target architecture for Crate's adoption of Kubernetes (k8s). Kubernetes is a container orchestration system that covers many of the same functions as a traditional system adminstrator. It has multiple, abstract components that can be used for managing application life cycle management through automation in a distributed architecture and is currently the most popular solution for running containers at scale.
+This article proposes a target architecture for Crate's adoption of Kubernetes (k8s). Kubernetes is a container orchestration system that covers many of the same functions as a traditional system administrator. It has multiple, abstract components that can be used for managing application life cycle management through automation in a distributed architecture and is currently the most popular solution for running containers at scale.
 
 The proposed architecture is meant to provide Kubernetes as a product, such that it can be adopted and managed by anyone as a turn-key solution. This will require that infrastructure is provided by third-party platforms and is accessible to automation through a robust set of provisioning APIs. The final product should yield long term cost saving benefits in the form of reduced licensing and operational costs.
 
 Components
 ==========
 
-The following architecture is compromised of multiple components. At a high level, a distinction can be drawn between the components that are provided as a part of Kubernetes and those that will be created by Crate to instantiate and manage Kubenernetes. For reference, both types of components are listed below.
+The following architecture is compromised of multiple components. At a high level, a distinction can be drawn between the components that are provided as a part of Kubernetes and those that will be created by Crate to instantiate and manage Kubernetes. For reference, both types of components are listed below.
 
 Kubernetes
 ----------
 
 ### Control Plane
 
-The control plane is a collection of four critical Kuberentes components that can be horizontally scaled.
+The control plane is a collection of four critical Kubernetes components that can be horizontally scaled.
 
 #### kube-apiserver
 
@@ -72,7 +72,7 @@ The `lifecycle-service` will be the primary initiator of all platform services
 
 ### Add Ons
 
-These services are available for use in any given Kubernetes cluster, primarly but not exclusively developed by Crate.
+These services are available for use in any given Kubernetes cluster, primarily but not exclusively developed by Crate.
 
 #### Docs
 
@@ -80,7 +80,7 @@ The `docs-service` and `docs-webui` will provide living documentation on how
 
 #### Automounts
 
-The `automounts-service` service will provide pods access to legacy EngIT NFS storage. It is expected to be available only to on-prem clusters, however, depending on cost and security, there may be a way to expose on-prem data in AWS. The solution may be implented through `autofs`, however, this is an implementation that should be considered at time of design.
+The `automounts-service` service will provide pods access to legacy EngIT NFS storage. It is expected to be available only to on-prem clusters, however, depending on cost and security, there may be a way to expose on-prem data in AWS. The solution may be implemented through `autofs`, however, this is an implementation that should be considered at time of design.
 
 MVP
 ===
