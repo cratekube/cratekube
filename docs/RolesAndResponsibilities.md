@@ -4,20 +4,20 @@ CrateKube defines the following roles in our open source ecosystem, with the ass
 
 ## Maintainer
 
-A maintainer has signficant ownership of the project. They have a strong stake in CrateKube's success and help to set the vision and steer the ship.
+A maintainer has signficant ownership of the project. They have a strong interest in CrateKube's success and help to steer the ship based on the vision established from the community.
 
 ### Responsibilities
 
-* Define, comprehend, and communicate the vision for the project. 
-* Define process and ensure that it is followed. 
-* Groom and prioritize the issue backlog. 
+* Comprehend and communicate the vision for the project. 
+* Define process and proliferate community understanding of team best practices . 
+* Prioritize and refine the issue backlog. 
 * Merging pull requests. 
 * Shepherd community engagement
 
 ### Requirements
 
 * Expertise in CrateKube's vision, processes, and general structure. 
-* Accepted by the existing maintainers. 
+* Chosen by the existing maintainers. 
 * Added to the maintainer role in GitHub. 
 
 ## Reviewer
@@ -35,7 +35,7 @@ A reviewer reviews code, documentation, and other deliverables. A reviewer role 
 
 ## Contributor
 
-A contributor is anyone who contributes code or documentation to the CrateKube project. Effectively, anyone who submits a pull request. 
+A contributor is anyone who contributes code or documentation to the CrateKube project--anyone who submits a pull request. 
 
 ### Responsibilities
 
