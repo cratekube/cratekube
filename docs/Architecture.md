@@ -6,7 +6,7 @@ This architecture proposal is meant to provide a turn-key solution that can be a
 
 # Components
 
-The following architecture is compromised of multiple components. At a high level, a distinction can be drawn between the components that are provided as a part of Kubernetes and those that will be created by the CrateKube team to instantiate and manage Kubernetes. For reference, both types of components are listed below.
+The following architecture is comprised of multiple components. At a high level, a distinction can be drawn between the components that are provided as a part of Kubernetes and those that will be created by the CrateKube team to instantiate and manage Kubernetes. For reference, both types of components are listed below.
 
 ## Kubernetes Components
 
@@ -138,7 +138,7 @@ The default security policies for the MVaP are expected to be in compliance with
 </details>
 
 ## Logical
-![Component](http://www.plantuml.com/plantuml/svg/hLN1ZjCm4BttAwnoZbeue5KFQ27GoqAreW8ErHwyzgHOTUneREzgXVBls4qwwjOX6m6-HDMyl7dptiIzTfwZ3xMU2Ms3PFDFvPiv-pLZyHWhWSrlhXoxrTnN5cjMwk0yu0aHJyF5WUyZxjPg9PxO5sxYpngCPrl01oM0mFtPDKTaKUzhNxWESyTUBPVhzN99o9Pb7SgayAK6k-CS0-JndA4wBWHd0mfmTwTIInXgkm7_QF70jjuYtr-CipDTjN1TbOY6c3wh2iIJq31ipKwVwcVAr-iFRylNOwnz9YywlnCTyDAR2kJLVTvXnCwYU9Sxo5PC870FRY51Gtegys0FuAOH3g_5YdtdMib4ovIfa4yZosA9H2a_SF4HoOWbzvr8SiT8K_drsySf5AJm7mW69YcV-qn4UShZfkIUv3GJWwASW9NML6e_cUqct0EQDCVfTebatIulQckKjtZYcj5-qkMKlVnivmaNDNcqEbra1jZ6IhZ4qGVLaRvlLFg8ShvkdaE45BnHXJk2-b702vdoGU1oyOZgtDFsg7-a8-irQlgKnteB0XTr0fE6JDcAAUC1AoxEDwKTrx8LFq46FIh1THZ-jvtRWPn-M3m03WL4IMBQiGslmJM9U2H7QOKhWfgFrljb_2E81szh6upFeTaCirnjSF5rm6c22SsRPlv_GPdvlU9sTWr6fl__tm00)
+![Component](https://www.plantuml.com/plantuml/svg/fLN1Zfim5Bpp5LPwHabxg5OvLDkbvR9jj6hKzX3buBKVgHLZ8zliQbNnxtt6927Wi6cB5A7WOTwycMTpQnqrhYvbmgIkEPbzpjxDoE-4uAKq1pAxlx7aGL9NQ5EIJDRMWJaWyAeeszCTuXwq5Eo5VAKA_vQW75c3UH8CUk3ssbGjCYrtfKjjm6p9cyKYpnUB8x8P5SXQWQ_mRzesOjnvtaC5BWDMruQ1tIR3ggUoAt3Fskp9scc33ywxsQYmcjgmkXthFp5z4GMm5oOXxin67jPxolFyxdtsTegrY-HLuz6P5ZZqfW1-ynYhSD7EDFqmTf0i2JD07TWv1md-BjIJteEzaZ0w5KloWqh1FIqHgZ3qIh9XB4ZayqEMjKEoSvQ8xvxaacDBadtx_kbgYh72loA8T9AT-poq9AOvQigK9nCqiQ1EEP5CgqBihcQxhn_1AD_7uN11iZ3Byr8hWGgJf3UOtQ4qUcjuoWGSYd56It-0AI0hV3R4zNQI9_rO2RzxndoXaJr2Kbg9jWcK6de0nxWF1dFXysSZ-cOs-1iIdLKadKPvtCDJjTaHd9O1t6aOALlYXa5V2ihw8z9CQrcpNy1hEId11WpzryfD9AUVE9VOVpIWBac3mzLgND4IREN99xBacjcq5hF9zMuIBu9exNIfQ-MYq2RflzUfn5dKfU_a6f57DAsgYoB-2tGoFToI9ha5nV5x_mS0)
 <details><summary>Show UML Code</summary>
 <p>
 
@@ -207,7 +207,7 @@ cloud "EC2" {
 </details>
 
 ## Physical
-![Component](http://www.plantuml.com/plantuml/svg/VPEnQiCm48PtFSMXpWQtG-cOr3HG0cqWGsP5kgGciYHEKcWeUVSwDi5rELkhl_lkln-yY4bHoeqLslfiGBvLJn9-1FJFUOCWFmEIIhLt4IgROqBgaE45fK_gs9ATf6YEJIeYqhdMAE6XB5Vju_bUzt_YWEPb_yXE16zhVU5Mb2KxOEi3weks-0TVhLwVgy5_XV6zx-v02ZRapxL1YbF7BdTRAUwAiM6TzqWE4_ADzL3bNI9lOMELG_Zm1dk8MNLgVR3LNsYoRLtJKA5xgRsLgfmwpjCgrBTM9Y5CsipCMqnpza3--oA5O2kgI2M4dQSJqd0yerepYzWzt7VTRL765Dv5EKvo3v9ZyWqIbsLi6z1b25BCbp8N5Q0hPGXp3mOWhcA1pjp-o5y0)
+![Component](hhttps://www.plantuml.com/plantuml/svg/VLF1Ri8m3BtdAwpiNAdROTeHLWq98Mr873Y7nB28D8dS50rD_FjIs81LRdrqdjzxUN4cJLAKsje9xK9hGBvLJnA-1LpA1uCWFoAIIZRu1YhNDWdf3j9LL7glTXbv9YdgNPsA1kbWDKfuACjPhW7ycQu_iKNpidba9s9mLXyvYR9a1vpTeZvgXtVmsUprkRhnd_vVT-wtf619uM0DKZDqr-bw9GNFi6WtI1uJye5TG5NmYOA3fLCUuJttUaetgNtcWvN-HDEwp3KCAlI5r7MPAf_xesWLRHVA80YJDYFp3jCOUwJmTPH2i15LUQEmomdMWVP8N01NkWKZncfnvxfJEYUeZ2do4ikUerz3-Pr2dOqC-haoNg7J62K7OCBXx0A8kntySvMx9p51R_Al_040)
 <details><summary>Show UML Code</summary>
 <p>
 
