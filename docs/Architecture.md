@@ -7,7 +7,6 @@ This architecture proposal is meant to provide a turn-key solution that can be a
 # Components
 
 The following architecture is comprised of multiple components. At a high level, a distinction can be drawn between the components that are provided as a part of Kubernetes and those that will be created by the CrateKube team to instantiate and manage Kubernetes. For reference, both types of components are listed below.
-
 ## Kubernetes Components
 
 ### Control Plane
@@ -71,7 +70,11 @@ The `lifecycle-service` will be the primary initiator of all platform services
 
 ### Add Ons
 
+<<<<<<< HEAD
 These custom services are available for use in any given Kubernetes cluster.
+=======
+These services are available for use in any given Kubernetes cluster, primarily but not exclusively developed by Crate.
+>>>>>>> master
 
 #### Docs
 
@@ -79,7 +82,11 @@ The CrateKube documentation will provide useful information regarding use the s
 
 #### Automounts
 
+<<<<<<< HEAD
 Automounts will give users the ability to mount NFS storage directly into a container. The solution may be implented through [autofs](https://www.linuxtechi.com/automount-nfs-share-in-linux-using-autofs/), however, this is an implementation that should be considered at time of design.
+=======
+The `automounts-service` service will provide pods access to legacy EngIT NFS storage. It is expected to be available only to on-prem clusters, however, depending on cost and security, there may be a way to expose on-prem data in AWS. The solution may be implemented through `autofs`, however, this is an implementation that should be considered at time of design.
+>>>>>>> master
 
 # MVaP
 
