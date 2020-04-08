@@ -35,7 +35,7 @@ Since the implementation phase has not been completed most of the tests would fa
 Creating tests often reveals gaps in the Architecture and Design. If this is the case please update those sections with the relevant modifications based on your improved understanding of the problem. 
 
 ##  Implementation 
-Finally we have arrived at the last step, implementing the features of the new CrateKube component. At this point all of your components should have defined interfaces and well understood behaviours. While coding we ask that you follow standard software development practices and methodologies: DRY, SOLID, 12-Factor App and etc...
+Finally we have arrived at the last step, implementing the new CrateKube feature. At this point all of your components should have defined interfaces and well understood behaviours. While coding we ask that you follow standard software development practices and methodologies: DRY, SOLID, 12-Factor App and etc...
 
 REST APIs should be designed following standard principles such as: using nouns not verbs, GET should never alter state, using single nouns and etc..
 
