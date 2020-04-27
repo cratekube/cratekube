@@ -64,4 +64,10 @@ Nobody knows everything! Asking questions early avoids many problems later, so q
 Focus on a single area where you know you can make the most impact.  Don't be afraid to seek out advice if your are not the subject matter expert.
 
 ### Give feedback effectively
-Giving feedback is challenging, but it's important to deliver it effectively. When providing feedback, always make it about the work itself; focus on the business impact and not the person. Make sure to provide at least one clear and recent example. If a person is going through a hard time in their personal life, then take that into account. 
+Giving feedback is challenging, but it's important to deliver it effectively. When providing feedback, always make it about the work itself; focus on the business impact and not the person. Make sure to provide at least one clear and recent example. If a person is going through a hard time in their personal life, then take that into account.
+
+## Credit
+
+Inspiration and some direct quotes were used from creative commons works by:
+- [The Apache Software foundation](https://www.apache.org/)
+- [Gitlab, Inc.](https://about.gitlab.com/)
