@@ -1,0 +1,23 @@
+apply plugin: 'codenarc'
+apply plugin: 'jacoco'
+
+codenarc {
+  configFile = rootProject.file('codenarc.groovy')
+}
+
+tasks.withType(Test) {
+  testLogging {
+    events 'passed', 'skipped', 'failed'
+  }
+}
+
+test {
+  useJUnitPlatform()
+}
+
+jacocoTestReport {
+  reports {
+    xml.enabled = true
+    html.enabled = true
+  }
+}

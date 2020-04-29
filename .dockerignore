@@ -1,0 +1,11 @@
+*
+!.git
+!ci
+!gradle
+!src
+!build.gradle
+!codenarc.groovy
+!gradle.properties
+!gradlew
+!settings.gradle
+!entrypoint.sh
