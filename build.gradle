@@ -31,8 +31,10 @@ dependencies {
   implementation 'software.amazon.awssdk:ec2'
   implementation 'software.amazon.awssdk:cloudformation'
 
-  testImplementation 'org.spockframework:spock-core:2.0-M2-groovy-3.0'
-  testImplementation 'org.spockframework:spock-guice:2.0-M2-groovy-3.0'
+  testImplementation 'org.spockframework:spock-junit4:2.0-M2-groovy-3.0'
+  testImplementation 'com.github.stefanbirkner:system-rules:1.19.0'
+  testImplementation 'cglib:cglib-nodep:3.3.0'
+  testImplementation 'com.aestasit.infrastructure.mock:groovy-sshd-mock:0.3'
 }
 
 jar {
