@@ -1,0 +1,15 @@
+nodes:
+{{~#each nodes}}
+- address: {{address}}
+  user: {{user}}
+  role: [{{join roles ","}}]
+{{~/each}}
+ssh_key_path: {{sshKeyPath}}
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h
+  kube-api:
+    pod_security_policy: false
+    always_pull_images: true
