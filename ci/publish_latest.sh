@@ -5,9 +5,7 @@ set -o errexit
 
 ## setup different build args if the build is for a snapshot or a tag
 echo "[travis_deploy] uploading maven artifact snapshot"
-docker build --build-arg "TRAVIS=${TRAVIS}" --build-arg "TRAVIS_JOB_ID=${TRAVIS_JOB_ID}" \
-             --build-arg "JFROG_DEPLOY_USER=${JFROG_DEPLOY_USER}" --build-arg "JFROG_DEPLOY_KEY=${JFROG_DEPLOY_KEY}" \
-             --target publish .
+docker build --build-arg "TRAVIS=${TRAVIS}" --build-arg "TRAVIS_JOB_ID=${TRAVIS_JOB_ID}" --target package .
 
 docker_tag="latest"
 
