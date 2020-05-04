@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "AWS CloudFormation template for the CrateKube bootstrap POC"
+Parameters:
+  Keyname:
+    Description: "Name of an existing EC2 KeyPair to enable SSH access to the instances"
+    Type: "String"
+    MinLength: "1"
+    MaxLength: "64"
+    AllowedPattern: "[-_ a-zA-Z0-9]*"
+    ConstraintDescription: "can contain only alphanumeric characters, spaces, dashes and underscores"
+Resources:
+  VPC:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: "10.0.0.0/16"
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: "default"
+  Subnet:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: "10.0.1.0/24"
+      MapPublicIpOnLaunch: true
+  InternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+  IGAttachment:
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  RouteTable:
+    Type: "AWS::EC2::RouteTable"
+    Properties:
+      VpcId: !Ref VPC
+  Route:
+    Type: "AWS::EC2::Route"
+    Properties:
+      RouteTableId: !Ref RouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  SubnetRtAssociation:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref Subnet
+  SshSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: 'security group for ssh access'
+      SecurityGroupEgress:
+        FromPort: 0
+        ToPort: 0
+        IpProtocol: -1
+        CidrIp: "0.0.0.0/0"
+      SecurityGroupIngress:
+      - FromPort: 22
+        ToPort: 22
+        IpProtocol: "tcp"
+        CidrIp: "0.0.0.0/0"
+      - FromPort: 10250
+        ToPort: 10250
+        IpProtocol: "tcp"
+        CidrIp: "0.0.0.0/0"
+      - FromPort: 2379
+        ToPort: 2379
+        IpProtocol: "tcp"
+        CidrIp: "0.0.0.0/0"
+      - FromPort: 6443
+        ToPort: 6443
+        IpProtocol: "tcp"
+        CidrIp: "0.0.0.0/0"
+  MasterInstance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: "ami-09edd32d9b0990d49"
+      InstanceType: "t2.large"
+      SubnetId: !Ref Subnet
+      SecurityGroupIds: [!Ref SshSecurityGroup]
+      KeyName: !Ref Keyname
+  WorkerInstance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: "ami-09edd32d9b0990d49"
+      InstanceType: "t2.large"
+      SubnetId: !Ref Subnet
+      SecurityGroupIds: [!Ref SshSecurityGroup]
+      KeyName: !Ref Keyname
+Outputs:
+  MasterNodeDNS:
+    Description: "master node host dns"
+    Value: !GetAtt MasterInstance.PublicDnsName
+  WorkerNodeDNS:
+    Description: "worker node host dns"
+    Value: !GetAtt WorkerInstance.PublicDnsName
