@@ -1,0 +1,16 @@
+nodes:
+- address: master.node
+  user: test-user
+  role: [controlplane,etcd]
+- address: worker.node
+  user: test-user
+  role: [worker]
+ssh_key_path: /test/ssh/path
+services:
+  etcd:
+    snapshot: true
+    creation: 6h
+    retention: 24h
+  kube-api:
+    pod_security_policy: false
+    always_pull_images: true

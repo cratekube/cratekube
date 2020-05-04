@@ -9,7 +9,7 @@ import software.amazon.awssdk.services.ec2.model.KeyPairInfo
  */
 interface Ec2Api {
   /**
-   * Finds and EC2 keypair by name.  Returns null if no keypair is found
+   * Finds an EC2 keypair by name.  Returns null if no keypair is found
    *
    * @param keyPairName {@code non-empty} keypair name
    * @return keypair object if found, otherwise null
