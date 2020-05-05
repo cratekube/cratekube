@@ -134,7 +134,10 @@ class AwsClusterService implements ClusterApi {
     log.info 'adding configuration files to worker node'
     def config = new WorkerNodeConfig(nodeDns: nodeDns, nodeUser: nodeUser)
 
-    workerNodeService.configureNode(config)
+    workerNodeService.with {
+      configureNode config
+      deployServices config
+    }
   }
 
   @Override

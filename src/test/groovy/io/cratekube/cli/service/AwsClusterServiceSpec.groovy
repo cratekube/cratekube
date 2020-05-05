@@ -179,6 +179,10 @@ class AwsClusterServiceSpec extends Specification {
       hasProperty('nodeUser', equalTo(nodeUser)),
       hasProperty('nodeDns', equalTo(nodeDns)),
     ))
+    1 * workerNodeService.deployServices(allOf(
+      hasProperty('nodeUser', equalTo(nodeUser)),
+      hasProperty('nodeDns', equalTo(nodeDns)),
+    ))
   }
 
   def 'should call correct apis when creating cluster'() {
