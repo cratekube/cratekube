@@ -11,4 +11,8 @@ final class Constants {
   // cloudformation constants
   public static final String CF_OUTPUT_MASTER_DNS = 'MasterNodeDNS'
   public static final String CF_OUTPUT_WORKER_DNS = 'WorkerNodeDNS'
+
+  // deployment constants
+  public static final String DEPLOYMENTS_PATH = '/deployments'
+  public static final String LIFECYCLE_SERVICE_DEPLOYMENT = 'lifecycle-service.yml'
 }

@@ -4,6 +4,7 @@ import com.github.jknack.handlebars.Handlebars
 import io.cratekube.cli.api.ProcessExecutor
 import io.cratekube.cli.api.RkeApi
 import io.cratekube.cli.model.RkeConfig
+import io.cratekube.cli.module.annotations.RkeCommand
 
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ class RkeService implements RkeApi {
   ProcessExecutor rke
 
   @Inject
-  RkeService(Handlebars handlebars, ProcessExecutor rke) {
+  RkeService(Handlebars handlebars, @RkeCommand ProcessExecutor rke) {
     this.handlebars = require handlebars, notNullValue()
     this.rke = require rke, notNullValue()
   }
