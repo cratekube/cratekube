@@ -131,11 +131,13 @@ class AwsClusterService implements ClusterApi {
     require nodeUser, notEmptyString()
     require nodeDns, notEmptyString()
 
-    log.info 'adding configuration files to worker node'
-    def config = new WorkerNodeConfig(nodeDns: nodeDns, nodeUser: nodeUser)
+    def config = new WorkerNodeConfig(nodeDns: nodeDns, nodeUser: nodeUser, adminApiKey: UUID.randomUUID())
+    log.info 'generated admin API key: {}', config.adminApiKey
 
     workerNodeService.with {
+      log.info 'configuring worker node'
       configureNode config
+      log.info 'deploying services'
       deployServices config
     }
   }

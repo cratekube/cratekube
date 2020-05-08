@@ -1,6 +1,7 @@
 package io.cratekube.cli.service
 
 import com.aestasit.ssh.mocks.MockSshServer
+import com.github.jknack.handlebars.Handlebars
 import io.cratekube.cli.api.ConfigApi
 import io.cratekube.cli.api.ProcessExecutor
 import io.cratekube.cli.model.WorkerNodeConfig
@@ -13,7 +14,7 @@ import org.valid4j.errors.RequireViolation
 import spock.lang.Specification
 import spock.lang.Subject
 
-import static io.cratekube.cli.model.Constants.LIFECYCLE_SERVICE_DEPLOYMENT
+import static io.cratekube.cli.model.Constants.DEPLOYMENT_NAME
 
 class WorkerNodeServiceSpec extends Specification {
   @Subject WorkerNodeService subject
@@ -21,12 +22,13 @@ class WorkerNodeServiceSpec extends Specification {
   ConfigApi configApi
   ProcessExecutor kubectl
   FileSystemManager fs
-
+  Handlebars handlebars
   def setup() {
     kubectl = Mock(ProcessExecutor)
     fs = Mock(FileSystemManager)
     configApi = new DefaultConfigService(VFS.manager, 'res:fixtures')
-    subject = new WorkerNodeService(ProductionModule.sshDslEngineProvider(), configApi, kubectl, fs)
+    handlebars = ProductionModule.handlebarsProvider()
+    subject = new WorkerNodeService(ProductionModule.sshDslEngineProvider(), configApi, kubectl, fs, handlebars)
   }
 
   def setupSpec() {
@@ -51,17 +53,18 @@ class WorkerNodeServiceSpec extends Specification {
 
   def 'should require valid constructor param'() {
     when:
-    new WorkerNodeService(engine, configService, kbectl, fsm)
+    new WorkerNodeService(engine, configService, kbectl, fsm, hbs)
 
     then:
     thrown RequireViolation
 
     where:
-    engine                                  | configService   | kbectl                | fsm
-    null                                    | null            | null                  | null
-    ProductionModule.sshDslEngineProvider() | null            | null                  | null
-    ProductionModule.sshDslEngineProvider() | Mock(ConfigApi) | null                  | null
-    ProductionModule.sshDslEngineProvider() | Mock(ConfigApi) | Mock(ProcessExecutor) | null
+    engine                                  | configService   | kbectl                | fsm                     | hbs
+    null                                    | null            | null                  | null                    | null
+    ProductionModule.sshDslEngineProvider() | null            | null                  | null                    | null
+    ProductionModule.sshDslEngineProvider() | Mock(ConfigApi) | null                  | null                    | null
+    ProductionModule.sshDslEngineProvider() | Mock(ConfigApi) | Mock(ProcessExecutor) | null                    | null
+    ProductionModule.sshDslEngineProvider() | Mock(ConfigApi) | Mock(ProcessExecutor) | Mock(FileSystemManager) | null
   }
 
   def 'configureNode should require valid param'() {
@@ -115,7 +118,7 @@ class WorkerNodeServiceSpec extends Specification {
     then:
     1 * kubectl.exec(
       _ as File,
-      '--kubeconfig', '/app/cratekube/rke/kube_config_cluster.yml', 'apply', '-f', LIFECYCLE_SERVICE_DEPLOYMENT
+      '--kubeconfig', '/app/cratekube/rke/kube_config_cluster.yml', 'apply', '-f', DEPLOYMENT_NAME
     ) >> GroovyMock(Process)
   }
 }

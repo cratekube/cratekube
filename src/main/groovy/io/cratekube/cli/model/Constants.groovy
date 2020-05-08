@@ -14,5 +14,5 @@ final class Constants {
 
   // deployment constants
   public static final String DEPLOYMENTS_PATH = '/deployments'
-  public static final String LIFECYCLE_SERVICE_DEPLOYMENT = 'lifecycle-service.yml'
+  public static final String DEPLOYMENT_NAME = 'deployment.yml'
 }
