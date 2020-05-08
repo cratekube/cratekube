@@ -13,6 +13,7 @@ class WorkerNodeConfig {
   String publicKeyPath = "/${PUBLIC_KEY_NAME}"
   String privateKeyPath = "/${PRIVATE_KEY_NAME}"
   String kubeConfigPath = '/rke/kube_config_cluster.yml'
+  UUID adminApiKey
 
   String getNodeUrl() {
     return "${nodeDns}:${sshPort}"

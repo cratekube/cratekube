@@ -1,4 +1,12 @@
 apiVersion: v1
+kind: Secret
+metadata:
+  name: cratekube-api-secret
+type: Opaque
+stringData:
+  admin-api-key: {{ adminApiKey }}
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: lifecycle-service
@@ -32,6 +40,12 @@ spec:
         image: cratekube/lifecycle-service:1.0.0
         ports:
         - containerPort: 9000
+        env:
+        - name: ADMIN_APIKEY
+          valueFrom:
+            secretKeyRef:
+              name: cratekube-api-secret
+              key: admin-api-key
         volumeMounts:
         - mountPath: /app/kube/kubeconfig
           name: kube-config-volume
