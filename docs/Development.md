@@ -15,14 +15,22 @@ A proof of concept is a small excercise to test the viability of a design or ass
 
 “Without good software design, programming is an art of adding bugs to an empty text file” -Louise Srygley
 
-A well thought out design is essential to writing code that is efficient, maintainable and easy to understand. When creating a new component for CrateKube the first required step is to create a design in the cratekube/cratekube repository. The preferred method of documenting the design is using UML diagrams with text based descriptions. (Examples can be seen here ......). At a minimum the design should include a component breakdown with UML diagrams and a standalone requirements document. If relevant, a list of assumptions, open questions and design decisions should be included. 
+A well thought out design is essential to writing code that is efficient, maintainable and easy to understand. When creating a new component for CrateKube the first required step is to create a design in the cratekube/cratekube repository. The preferred method of documenting the design is using UML diagrams with text based descriptions. At a minimum the design should include a component breakdown with UML diagrams and a standalone requirements document. If relevant, a list of assumptions, open questions and design decisions should be included. 
+
+A few examples of our architecture documents can be seen below:
+
+- [Overall CrateKube Architecture](./Architecture.md)
+- [Cluster Management Service Architecture](https://github.com/cratekube/cluster-mgmt-service/blob/master/docs/architecture.md)
+- [Lifecycle Service Architecture](https://github.com/cratekube/lifecycle-service/blob/master/docs/architecture.md)
 
 The first step of writing the architecture is to open a GitHub Issue in the cratekube/cratekube repository. Once the issue is created the CrateKube maintainers will be able to comment on the architecture design and create a new repository for the new component.
 
-##  Code-level Design
-The code-level design is the first coding step of the development process. If the new component is a standard dropwizard microservice application the cratekube/dropwizard-groovy-template template can be used as a starting point. This template contains all the files needed to build a Groovy based dropwizard application, run tests and deploy to CrateKube's CI/CD pipeline. Once the repository is set up with all of the files needed to build and deploy the component it should be commited and a PR review should be submitted. This first PR should contain nothing but the essential project files so that later additions can be reviewed independently of project files. 
+Be sure to review our [Architecture Guidelines](../contributing/Architecture%20Guidelines.md) as you create an architecture. 
 
-Once a PR is submitted for the initial project the actual design portion can begin. The first step is to create the model classes that specify the domain on which this component will operate. Once the model is complete we can define service level interfaces that specify the actions the component will perform internally. The last step is to create REST endpoints that will define how the components functions will be accessed. CrateKube components should always be designed with containerization in mind, all microservices should have a relevant docker-compose.yaml file and be fully runnable inside of a container. 
+##  Code-level Design
+The code-level design is the first coding step of the development process. If the new component is a standard dropwizard microservice application the [cratekube/dropwizard-groovy-template template](https://github.com/cratekube/dropwizard-groovy-template) can be used as a starting point. This template contains all the files needed to build a Groovy based dropwizard application, run tests and deploy to CrateKube's CI/CD pipeline. Once the repository is set up with all of the files needed to build and deploy the component it should be commited and a PR review should be submitted. This first PR should contain nothing but the essential project files so that later additions can be reviewed independently of project files. 
+
+Once a PR is submitted for the initial project the actual design portion can begin. The first step is to create the model classes that specify the domain on which this component will operate. Once the model is complete we can define service level interfaces that specify the actions the component will perform internally. The last step is to create REST endpoints that will define how the components functions will be accessed. CrateKube components should always be designed with containerization in mind, all microservices should have a relevant deployment.yaml file targeted at k8s and be fully runnable inside of a container. 
 
 All of the code should have appropriate and relevant comments to describe the functionality in sufficient enough detail for someone else to implement.
 - Comments should be work appropriate and focus on the content of the code.
@@ -32,7 +40,9 @@ All of the code should have appropriate and relevant comments to describe the fu
 During the code-level design phase you may find that the original Architecture requires modification, this is normal. Simply update the Architecture section and open another PR for it as part of your design.  
 
 ##  Automated Testing
-The CrateKube project follows a Test-Driven Development approach for creating components. When creating a brand new component we prefer that tests are written first and submitted as an indepedent PR. This will ensure that the new components design is well defined and fully developed prior to implementation. When opening a PR just for tests the @PendingAnnotation can be added to those tests that will fail until the implementation is complete. 
+The CrateKube project follows a Test-Driven Development approach for creating components. When creating a brand new component we prefer that tests are written first and submitted as an indepedent PR. This will ensure that the new component's design is well defined and fully developed prior to implementation. When opening a PR just for tests the @PendingAnnotation can be added to those tests that will fail until the implementation is complete. 
+
+Our Groovy microservices use the [Spock](http://spockframework.org/spock/docs/1.3/index.html) test framework. 
 
 When making changes to an existing components, we still ask that tests are written prior to implementation but it is not necessary to submit them in a separate PR. 
 
@@ -54,5 +64,5 @@ For features and components requring external communication, authentication will
 CrateKube components use Travis CI as the CI/CD pipeline management tool. Each project will have a /ci folder containing all the scripts required to run a build with tests and push the component image to a centralized repository. 
 
 ## Code Reviews
-Code Reviews are performed after a PR is opened. For details on this process please review the contribution guidelines at https://github.com/cratekube/cratekube/blob/master/CONTRIBUTING.md
+Code Reviews are performed after a PR is opened. For details on this process please review our [contribution guidelines](../CONTRIBUTING.md).
 
