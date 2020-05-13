@@ -103,17 +103,22 @@ git commit -s
 git commit --signoff
 ```
 
+If you are using IntelliJ to commit your changes, be sure to check the Sign-off Commit box in the Commit Changes dialog. 
+
 ### PR best practices
 For CrateKube projects, we use the following best practices for submitting PRs:
 - avoid including unrelated commits
 - avoid large changes unless absolutely required
 - rebase your branch before submitting
+    - squash your commits down to a single commit as part of the rebase ([rebase squashing guide](https://medium.com/@slamflipstrom/a-beginners-guide-to-squashing-commits-with-git-rebase-8185cf6e62ec))
 - include test cases for any source code changes
+  - we use the [Spock](http://spockframework.org/spock/docs/1.3/index.html) testing framework for our Groovy microservices
+  - we recommend using Test Driven Development (TDD), writing your tests first and coding the solution to the tests
 - include documentation for changes that affect application contracts
 
 Additionally, when submitting PRs please provide a title that accurately describes the change. If the PR fixes an issue be sure
 to reference the issue number in the PR description. Keywords and syntax formatting for issue linking can be found
-in the GitHub [documentation](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)._
+in the GitHub [documentation](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword).
 
 ### Code Review
 Code review is an important part of our quality control process. As a result, all PRs must go through a review by CrateKube
