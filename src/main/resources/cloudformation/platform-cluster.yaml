@@ -8,6 +8,48 @@ Parameters:
     MaxLength: "64"
     AllowedPattern: "[-_ a-zA-Z0-9]*"
     ConstraintDescription: "can contain only alphanumeric characters, spaces, dashes and underscores"
+Mappings:
+  RegionMap:
+    af-south-1:
+      HVM64: ami-04402e3da3a7a5357
+    eu-north-1:
+      HVM64: ami-00ace2399b9d2b103
+    ap-south-1:
+      HVM64: ami-0d0e74761b4cc8a53
+    eu-west-3:
+      HVM64: ami-02840369a939ae502
+    eu-west-2:
+      HVM64: ami-066f0ae194916c572
+    eu-south-1:
+      HVM64: ami-0150ade5ec13519e2
+    eu-west-1:
+      HVM64: ami-09266271a2521d06f
+    ap-northeast-2:
+      HVM64: ami-062022418ff822030
+    me-south-1:
+      HVM64: ami-01c838c68451ec0dc
+    ap-northeast-1:
+      HVM64: ami-032b1a02e6610214e
+    sa-east-1:
+      HVM64: ami-0cbe40dd412e5ef32
+    ca-central-1:
+      HVM64: ami-05e77f4fec44e91f3
+    ap-east-1:
+      HVM64: ami-067e77c5d74f989a7
+    ap-southeast-1:
+      HVM64: ami-0fa00d20cc2fa3c81
+    ap-southeast-2:
+      HVM64: ami-064db566f79006111
+    eu-central-1:
+      HVM64: ami-0e9347664c1c5ed65
+    us-east-1:
+      HVM64: ami-09edd32d9b0990d49
+    us-east-2:
+      HVM64: ami-008c5ba1857e0fdec
+    us-west-1:
+      HVM64: ami-02649d71054b25d22
+    us-west-2:
+      HVM64: ami-023578bcb54b36edf
 Resources:
   VPC:
     Type: "AWS::EC2::VPC"
@@ -74,7 +116,7 @@ Resources:
   MasterInstance:
     Type: "AWS::EC2::Instance"
     Properties:
-      ImageId: "ami-09edd32d9b0990d49"
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
       InstanceType: "t2.large"
       SubnetId: !Ref Subnet
       SecurityGroupIds: [!Ref SshSecurityGroup]
@@ -82,7 +124,7 @@ Resources:
   WorkerInstance:
     Type: "AWS::EC2::Instance"
     Properties:
-      ImageId: "ami-09edd32d9b0990d49"
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
       InstanceType: "t2.large"
       SubnetId: !Ref Subnet
       SecurityGroupIds: [!Ref SshSecurityGroup]
