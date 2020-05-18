@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.cloudformation.model.Stack as CFStack
 import software.amazon.awssdk.services.cloudformation.model.StackStatus
 
 import javax.inject.Inject
+import java.time.Duration
 
 import static io.cratekube.cli.model.Constants.BASE_DIRECTORY
 import static io.cratekube.cli.model.Constants.CF_OUTPUT_MASTER_DNS
@@ -98,7 +99,10 @@ class AwsClusterService implements ClusterApi {
     cloudformation.createPlatformClusterStack(CLUSTER_NAME)
 
     // wait for status to become complete
-    return cloudformation.waitForStatus(CLUSTER_NAME, StackStatus.CREATE_COMPLETE)
+    def cfStack = cloudformation.waitForStatus(CLUSTER_NAME, StackStatus.CREATE_COMPLETE)
+    // wait for the docker daemon to be available
+    sleep(Duration.ofSeconds(10).toMillis())
+    return cfStack
   }
 
   void initRkeCluster(String nodeUser, String masterDns, String workerDns) {
