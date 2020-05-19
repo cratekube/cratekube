@@ -115,20 +115,56 @@ Resources:
         CidrIp: "0.0.0.0/0"
   MasterInstance:
     Type: "AWS::EC2::Instance"
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          services:
+            sysvinit:
+              docker:
+                enabled: "true"
+                ensureRunning: "true"
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
       InstanceType: "t2.large"
       SubnetId: !Ref Subnet
       SecurityGroupIds: [!Ref SshSecurityGroup]
       KeyName: !Ref Keyname
+      UserData:
+        "Fn::Base64":
+          !Sub |
+          #!/bin/bash -xe
+          yum install -y aws-cfn-bootstrap
+          /opt/aws/bin/cfn-init --stack ${AWS::StackName} --resource MasterInstance --region ${AWS::Region}
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource MasterInstance --region ${AWS::Region}
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT4M
   WorkerInstance:
     Type: "AWS::EC2::Instance"
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          services:
+            sysvinit:
+              docker:
+                enabled: "true"
+                ensureRunning: "true"
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
       InstanceType: "t2.large"
       SubnetId: !Ref Subnet
       SecurityGroupIds: [!Ref SshSecurityGroup]
       KeyName: !Ref Keyname
+      UserData:
+        "Fn::Base64":
+          !Sub |
+          #!/bin/bash -xe
+          yum install -y aws-cfn-bootstrap
+          /opt/aws/bin/cfn-init --stack ${AWS::StackName} --resource WorkerInstance --region ${AWS::Region}
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WorkerInstance --region ${AWS::Region}
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT4M
 Outputs:
   MasterNodeDNS:
     Description: "master node host dns"
