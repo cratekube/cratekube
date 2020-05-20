@@ -125,7 +125,7 @@ Resources:
                 ensureRunning: "true"
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
-      InstanceType: "t2.large"
+      InstanceType: "t3.large"
       SubnetId: !Ref Subnet
       SecurityGroupIds: [!Ref SshSecurityGroup]
       KeyName: !Ref Keyname
@@ -151,7 +151,7 @@ Resources:
                 ensureRunning: "true"
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
-      InstanceType: "t2.large"
+      InstanceType: "t3.large"
       SubnetId: !Ref Subnet
       SecurityGroupIds: [!Ref SshSecurityGroup]
       KeyName: !Ref Keyname

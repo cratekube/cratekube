@@ -82,7 +82,7 @@ class AwsClusterService implements ClusterApi {
     def keyPair = ec2.findKeyPairByName(CLUSTER_NAME)
     if (keyPair) { return }
 
-    log.info 'creating keypair [{}]', CLUSTER_NAME
+    // create the keypair
     sshKeyGen.createKeypair(BASE_DIRECTORY, PRIVATE_KEY_NAME)
 
     // import the keypair to aws
