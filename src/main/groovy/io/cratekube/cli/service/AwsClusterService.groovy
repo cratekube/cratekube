@@ -90,9 +90,15 @@ class AwsClusterService implements ClusterApi {
   }
 
   CFStack createCloudFormationStack() {
-    // check if stack already exists
+    // check if stack already exists and is create complete. Remove stack if rolled back.
     def existingStack = cloudformation.findCloudFormationStackByName(CLUSTER_NAME)
-    if (existingStack) { return existingStack }
+    if (existingStack?.stackStatus() == StackStatus.CREATE_COMPLETE) {
+      return existingStack
+    } else if (existingStack?.stackStatus() in [StackStatus.ROLLBACK_COMPLETE, StackStatus.ROLLBACK_IN_PROGRESS, StackStatus.DELETE_IN_PROGRESS]) {
+      log.debug 'waiting for existing stack [{}] with status [{}]', existingStack.stackId(), existingStack.stackStatus()
+      cloudformation.deleteStackByName(CLUSTER_NAME)
+      cloudformation.waitForStatus(existingStack.stackId(), StackStatus.DELETE_COMPLETE)
+    }
 
     // create the stack
     cloudformation.createPlatformClusterStack(CLUSTER_NAME)
@@ -146,8 +152,11 @@ class AwsClusterService implements ClusterApi {
   ClusterState remove() {
     log.debug 'removing cluster [{}]', CLUSTER_NAME
     log.debug '  | deleting cloudformation stack', CLUSTER_NAME
-    cloudformation.deleteStackByName(CLUSTER_NAME)
-
+    def existingStack = cloudformation.findCloudFormationStackByName(CLUSTER_NAME)
+    if (existingStack) {
+      cloudformation.deleteStackByName(CLUSTER_NAME)
+      cloudformation.waitForStatus(existingStack.stackId(), StackStatus.DELETE_COMPLETE)
+    }
     log.debug '  | deleting keypair', CLUSTER_NAME
     ec2.deleteKeyPairByName(CLUSTER_NAME)
 

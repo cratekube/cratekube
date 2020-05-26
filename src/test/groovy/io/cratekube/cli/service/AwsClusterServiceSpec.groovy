@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.allOf
 import static org.hamcrest.Matchers.equalTo
 import static org.hamcrest.Matchers.hasProperty
 import static org.valid4j.matchers.ArgumentMatchers.notEmptyString
+import static software.amazon.awssdk.services.cloudformation.model.StackStatus.CREATE_COMPLETE
 import static spock.util.matcher.HamcrestSupport.expect
 
 class AwsClusterServiceSpec extends Specification {
@@ -88,9 +89,9 @@ class AwsClusterServiceSpec extends Specification {
     1 * ec2.importKeyPair(_, _)
   }
 
-  def 'createCloudFormationStack should return stack when found'() {
+  def 'createCloudFormationStack should return stack when found and create complete'() {
     given:
-    def stack = Stack.builder().stackName('test-stack').build()
+    def stack = Stack.builder().stackName('test-stack').stackStatus(CREATE_COMPLETE).build()
     cloudFormation.findCloudFormationStackByName(_) >> stack
 
     when:
@@ -231,7 +232,9 @@ class AwsClusterServiceSpec extends Specification {
     subject.remove()
 
     then:
+    1 * cloudFormation.findCloudFormationStackByName(_) >> Stack.builder().build()
     1 * cloudFormation.deleteStackByName(_)
+    1 * cloudFormation.waitForStatus(_, _)
     1 * ec2.deleteKeyPairByName(_)
     1 * privateKeyFile.delete()
     1 * publicKeyFile.delete()
