@@ -120,6 +120,12 @@ Additionally, when submitting PRs please provide a title that accurately describ
 to reference the issue number in the PR description. Keywords and syntax formatting for issue linking can be found
 in the GitHub [documentation](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword).
 
+### Specifying issue references
+All commits and PRs should link to the original issue being resolved. In order to achieve that, follow the following syntax during commits and PRs:
+- Each commit should begin with: `cratekube/<repo_name>#<issue_number>`.
+- The same reference, i.e., `cratekube/<repo_name>#<issue_number>` should be added as a comment while creating a PR. 
+
+
 ### Code Review
 Code review is an important part of our quality control process. As a result, all PRs must go through a review by CrateKube
 maintainers. After a PR is submitted, one or more reviewers will be assigned to inspect the contribution. Each of the assigned
